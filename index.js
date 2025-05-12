@@ -7,6 +7,9 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/manychat', async (req, res) => {
+  console.log('✅ Webhook attivato!');
+  console.log('📩 Corpo della richiesta:', req.body);
+
   try {
     const userMessage = req.body.text || '';
     const userId = req.body.user_id;
