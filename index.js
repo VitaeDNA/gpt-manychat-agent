@@ -4,10 +4,28 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
+let db;
+let historyCollection;
+
+// Connessione a MongoDB
+async function connectToMongo() {
+  try {
+    await mongoClient.connect();
+    db = mongoClient.db(process.env.MONGODB_DB || 'vitaedna');
+    historyCollection = db.collection('conversation_history');
+    console.log('✅ Connesso a MongoDB');
+  } catch (err) {
+    console.error('❌ Errore connessione MongoDB:', err);
+  }
+}
+connectToMongo();
 
 // Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
@@ -49,7 +67,7 @@ app.post('/manychat', async (req, res) => {
     let userMessage = req.body.text || '';
     let origin = 'text';
 
-    // Controlla se il messaggio è un URL audio da lookaside.fbsbx.com (tipico di WhatsApp/FB)
+    // Controlla se il messaggio è un URL audio da lookaside.fbsbx.com
     if (userMessage.includes('lookaside.fbsbx.com')) {
       console.log('🎧 URL audio rilevato, procedo con la trascrizione...');
       const transcribed = await transcribeAudio(userMessage);
@@ -162,9 +180,19 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     const reply = gptReply.data.choices[0].message.content;
     console.log("📤 Risposta AI:", reply);
 
+    // Salva cronologia su MongoDB
+    await historyCollection.insertOne({
+      user_id: userId,
+      timestamp: new Date(),
+      origin,
+      userMessage,
+      aiReply: reply
+    });
+
+    // Restituisci la risposta per Manychat
     res.status(200).json({
       message: reply,
-      origin: origin
+      origin
     });
 
   } catch (error) {
