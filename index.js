@@ -108,10 +108,11 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
       }
     );
 
-    const reply = gptReply.data.choices[0].message.content;
+const reply = gptReply.data.choices[0].message.content;
+console.log("📤 Risposta inviata a Manychat:", reply);
 
-    // Invia risposta a Manychat
-  await axios.post(
+// Invia risposta a Manychat
+await axios.post(
   'https://api.manychat.com/fb/sending/sendTextMessage',
   {
     subscriber_id: userId,
@@ -125,7 +126,8 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
   }
 );
 
-    res.status(200).json({ status: 'OK' });
+res.status(200).send('✅ Messaggio ricevuto e risposta inviata');
+
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.status(500).send('Errore nel server');
