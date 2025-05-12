@@ -113,10 +113,13 @@ console.log("📤 Risposta inviata a Manychat:", reply);
 
 // Invia risposta a Manychat
 await axios.post(
-  'https://api.manychat.com/fb/sending/sendTextMessage',
+  'https://api.manychat.com/v2/conversations/send',
   {
     subscriber_id: userId,
-    message: reply,
+    message: {
+      type: "text",
+      text: reply,
+    }
   },
   {
     headers: {
