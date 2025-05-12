@@ -47,21 +47,18 @@ app.post('/manychat', async (req, res) => {
   try {
     const userId = req.body.user_id;
     let userMessage = req.body.text || '';
-    let audioUrl = null;
     let origin = 'text';
 
-    // Prova a recuperare URL dell'audio da possibili strutture
-    if (req.body?.attachment?.type === 'audio') {
-      audioUrl = req.body.attachment.url;
-    } else if (req.body?.message?.attachments?.[0]?.type === 'audio') {
-      audioUrl = req.body.message.attachments[0].url;
-    }
-
-    // Se è presente un audio ma non testo, trascrivi
-    if (!userMessage && audioUrl) {
-      console.log('🎧 Audio ricevuto, procedo con trascrizione...');
-      userMessage = await transcribeAudio(audioUrl);
-      origin = 'audio';
+    // Controlla se il messaggio è un URL audio da lookaside.fbsbx.com (tipico di WhatsApp/FB)
+    if (userMessage.includes('lookaside.fbsbx.com')) {
+      console.log('🎧 URL audio rilevato, procedo con la trascrizione...');
+      const transcribed = await transcribeAudio(userMessage);
+      if (transcribed) {
+        userMessage = transcribed;
+        origin = 'audio';
+      } else {
+        return res.status(200).json({ message: "Non sono riuscito a trascrivere l'audio. Puoi riprovare?" });
+      }
     }
 
     if (!userMessage) {
@@ -132,10 +129,10 @@ Analizziamo ora le tue risposte e ti prepariamo un consiglio personalizzato con:
 
 Dopo aver raccolto tutte le informazioni, scrivi un consiglio articolato di almeno 5 paragrafi, seguendo questa struttura:
 
-1. Sintesi del contesto
-2. Spiega perché il suo approccio attuale non funziona
-3. Introduci la genetica come chiave della personalizzazione
-4. Consiglia il test più adatto (tra quelli indicati) con link
+1. Sintesi del contesto  
+2. Spiega perché il suo approccio attuale non funziona  
+3. Introduci la genetica come chiave della personalizzazione  
+4. Consiglia il test più adatto (tra quelli indicati) con link  
 5. Spiega cosa succede dopo il test
 
 🎯 Conclusione motivazionale:
@@ -165,7 +162,6 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     const reply = gptReply.data.choices[0].message.content;
     console.log("📤 Risposta AI:", reply);
 
-    // Restituisci per Manychat (mappa {{response.message}})
     res.status(200).json({
       message: reply,
       origin: origin
