@@ -9,6 +9,7 @@ require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
 
+// Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
   try {
     const audioResponse = await axios.get(audioUrl, { responseType: 'arraybuffer' });
@@ -33,11 +34,12 @@ async function transcribeAudio(audioUrl) {
     fs.unlinkSync(audioPath);
     return response.data.text;
   } catch (error) {
-    console.error('Errore nella trascrizione audio:', error.response?.data || error.message);
+    console.error('❌ Errore nella trascrizione audio:', error.response?.data || error.message);
     return null;
   }
 }
 
+// Endpoint principale per Manychat
 app.post('/manychat', async (req, res) => {
   console.log('✅ Webhook attivato!');
   console.log('📩 Corpo della richiesta:', req.body);
@@ -45,10 +47,12 @@ app.post('/manychat', async (req, res) => {
   try {
     const { text, user_id, audio_url } = req.body;
     let userMessage = text || '';
+    let origin = 'text';
 
     if (!userMessage && audio_url) {
-      console.log('🎧 Audio ricevuto, trascrivo...');
+      console.log('🎧 Audio ricevuto, procedo con trascrizione...');
       userMessage = await transcribeAudio(audio_url);
+      origin = 'audio';
     }
 
     if (!userMessage) {
@@ -131,6 +135,7 @@ Dopo aver raccolto tutte le informazioni, scrivi un consiglio articolato di alme
 Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna, consiglia.
     `;
 
+    // Chiamata GPT
     const gptReply = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -151,9 +156,10 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     const reply = gptReply.data.choices[0].message.content;
     console.log("📤 Risposta AI:", reply);
 
-    // Restituisci il messaggio come JSON per Manychat {{response.message}}
+    // Restituisci per Manychat (mappa {{response.message}})
     res.status(200).json({
-      message: reply
+      message: reply,
+      origin: origin // opzionale se vuoi usare nel debug
     });
 
   } catch (error) {
