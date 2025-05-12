@@ -1,20 +1,61 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+
+async function transcribeAudio(audioUrl) {
+  try {
+    const audioResponse = await axios.get(audioUrl, { responseType: 'arraybuffer' });
+    const audioPath = path.join(__dirname, 'temp_audio.mp3');
+    fs.writeFileSync(audioPath, audioResponse.data);
+
+    const form = new FormData();
+    form.append('file', fs.createReadStream(audioPath));
+    form.append('model', 'whisper-1');
+
+    const response = await axios.post(
+      'https://api.openai.com/v1/audio/transcriptions',
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        },
+      }
+    );
+
+    fs.unlinkSync(audioPath);
+    return response.data.text;
+  } catch (error) {
+    console.error('Errore nella trascrizione audio:', error.response?.data || error.message);
+    return null;
+  }
+}
 
 app.post('/manychat', async (req, res) => {
   console.log('✅ Webhook attivato!');
   console.log('📩 Corpo della richiesta:', req.body);
 
   try {
-    const userMessage = req.body.text || '';
-    const userId = req.body.user_id;
+    const { text, user_id, audio_url } = req.body;
+    let userMessage = text || '';
 
-    // Prompt personalizzato (system)
+    if (!userMessage && audio_url) {
+      console.log('🎧 Audio ricevuto, trascrivo...');
+      userMessage = await transcribeAudio(audio_url);
+    }
+
+    if (!userMessage) {
+      return res.status(200).json({ message: "Non ho capito il messaggio, puoi ripetere?" });
+    }
+
+    // Prompt personalizzato
     const systemPrompt = `
 Sei un consulente genetico professionale, parte del team VitaeDNA.
 
@@ -90,7 +131,6 @@ Dopo aver raccolto tutte le informazioni, scrivi un consiglio articolato di alme
 Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna, consiglia.
     `;
 
-    // Chiamata a GPT-4
     const gptReply = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -108,32 +148,17 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
       }
     );
 
-const reply = gptReply.data.choices[0].message.content;
-console.log("📤 Risposta inviata a Manychat:", reply);
+    const reply = gptReply.data.choices[0].message.content;
+    console.log("📤 Risposta AI:", reply);
 
-// Invia risposta a Manychat
-await axios.post(
-  'https://api.manychat.com/v2/conversations/send',
-  {
-    subscriber_id: userId,
-    message: {
-      type: "text",
-      text: reply,
-    }
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${process.env.MANYCHAT_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-  }
-);
-
-res.status(200).send('✅ Messaggio ricevuto e risposta inviata');
+    // Restituisci il messaggio come JSON per Manychat {{response.message}}
+    res.status(200).json({
+      message: reply
+    });
 
   } catch (error) {
-    console.error(error.response?.data || error.message);
-    res.status(500).send('Errore nel server');
+    console.error('❌ Errore:', error.response?.data || error.message);
+    res.status(500).json({ message: 'Errore nel server' });
   }
 });
 
