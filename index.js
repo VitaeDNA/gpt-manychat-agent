@@ -129,4 +129,5 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
   }
 });
 
-app.listen(3000, () => console.log('✅ Server AI avviato sulla porta 3000'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`✅ Server AI avviato sulla porta ${port}`));
