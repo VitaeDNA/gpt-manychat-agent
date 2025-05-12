@@ -108,19 +108,19 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     const reply = gptReply.data.choices[0].message.content;
 
     // Invia risposta a Manychat
-    await axios.post(
-      'https://api.manychat.com/fb/sending/sendContent',
-      {
-        subscriber_id: userId,
-        messages: [{ type: 'text', text: reply }],
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.MANYCHAT_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+  await axios.post(
+  'https://api.manychat.com/fb/sending/sendTextMessage',
+  {
+    subscriber_id: userId,
+    message: reply,
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.MANYCHAT_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  }
+);
 
     res.status(200).json({ status: 'OK' });
   } catch (error) {
