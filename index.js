@@ -10,22 +10,15 @@ require('dotenv').config();
 const app = express();
 app.use(bodyParser.json());
 
+// Connessione MongoDB
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
-let db;
-let historyCollection;
+let db, conversations;
 
-// Connessione a MongoDB
-async function connectToMongo() {
-  try {
-    await mongoClient.connect();
-    db = mongoClient.db(process.env.MONGODB_DB || 'vitaedna');
-    historyCollection = db.collection('conversation_history');
-    console.log('✅ Connesso a MongoDB');
-  } catch (err) {
-    console.error('❌ Errore connessione MongoDB:', err);
-  }
-}
-connectToMongo();
+mongoClient.connect().then(() => {
+  db = mongoClient.db("chat_ai");
+  conversations = db.collection("logs");
+  console.log("✅ Connessione a MongoDB riuscita");
+}).catch(console.error);
 
 // Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
@@ -67,7 +60,7 @@ app.post('/manychat', async (req, res) => {
     let userMessage = req.body.text || '';
     let origin = 'text';
 
-    // Controlla se il messaggio è un URL audio da lookaside.fbsbx.com
+    // Controllo audio da URL lookaside
     if (userMessage.includes('lookaside.fbsbx.com')) {
       console.log('🎧 URL audio rilevato, procedo con la trascrizione...');
       const transcribed = await transcribeAudio(userMessage);
@@ -83,7 +76,11 @@ app.post('/manychat', async (req, res) => {
       return res.status(200).json({ message: "Non ho capito il messaggio, puoi ripetere?" });
     }
 
-    // Prompt personalizzato
+    // Recupera cronologia
+    const previous = await conversations.findOne({ user_id: userId }) || { messages: [] };
+    const history = previous.messages || [];
+
+    // Prompt originale completo
     const systemPrompt = `
 Sei un consulente genetico professionale, parte del team VitaeDNA.
 
@@ -157,17 +154,20 @@ Dopo aver raccolto tutte le informazioni, scrivi un consiglio articolato di alme
 “Il tuo DNA è la tua mappa. Noi ti aiutiamo a leggerla, così trovi la strada più breve verso il tuo obiettivo.”
 
 Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna, consiglia.
-    `;
+`;
 
-    // Chiamata GPT
+    // Preparazione messaggi per GPT
+    const gptMessages = [
+      { role: 'system', content: systemPrompt },
+      ...history.slice(-6),
+      { role: 'user', content: userMessage }
+    ];
+
     const gptReply = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
         model: 'gpt-4',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage }
-        ]
+        messages: gptMessages
       },
       {
         headers: {
@@ -180,19 +180,26 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     const reply = gptReply.data.choices[0].message.content;
     console.log("📤 Risposta AI:", reply);
 
-    // Salva cronologia su MongoDB
-    await historyCollection.insertOne({
-      user_id: userId,
-      timestamp: new Date(),
-      origin,
-      userMessage,
-      aiReply: reply
-    });
+    // Salva cronologia
+    await conversations.updateOne(
+      { user_id: userId },
+      {
+        $push: {
+          messages: {
+            $each: [
+              { role: 'user', content: userMessage },
+              { role: 'assistant', content: reply }
+            ],
+            $slice: -20 // Limita a ultimi 20 messaggi
+          }
+        }
+      },
+      { upsert: true }
+    );
 
-    // Restituisci la risposta per Manychat
     res.status(200).json({
       message: reply,
-      origin
+      origin: origin
     });
 
   } catch (error) {
