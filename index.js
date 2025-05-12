@@ -42,16 +42,25 @@ async function transcribeAudio(audioUrl) {
 // Endpoint principale per Manychat
 app.post('/manychat', async (req, res) => {
   console.log('✅ Webhook attivato!');
-  console.log('📩 Corpo della richiesta:', req.body);
+  console.log('📩 Corpo della richiesta:', JSON.stringify(req.body, null, 2));
 
   try {
-    const { text, user_id, audio_url } = req.body;
-    let userMessage = text || '';
+    const userId = req.body.user_id;
+    let userMessage = req.body.text || '';
+    let audioUrl = null;
     let origin = 'text';
 
-    if (!userMessage && audio_url) {
+    // Prova a recuperare URL dell'audio da possibili strutture
+    if (req.body?.attachment?.type === 'audio') {
+      audioUrl = req.body.attachment.url;
+    } else if (req.body?.message?.attachments?.[0]?.type === 'audio') {
+      audioUrl = req.body.message.attachments[0].url;
+    }
+
+    // Se è presente un audio ma non testo, trascrivi
+    if (!userMessage && audioUrl) {
       console.log('🎧 Audio ricevuto, procedo con trascrizione...');
-      userMessage = await transcribeAudio(audio_url);
+      userMessage = await transcribeAudio(audioUrl);
       origin = 'audio';
     }
 
@@ -159,7 +168,7 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     // Restituisci per Manychat (mappa {{response.message}})
     res.status(200).json({
       message: reply,
-      origin: origin // opzionale se vuoi usare nel debug
+      origin: origin
     });
 
   } catch (error) {
