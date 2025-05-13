@@ -182,12 +182,24 @@ Frase finale:
   ...userHistory.slice(-6),
   { role: 'user', content: userMessage }
 ];
-// Primo passaggio: genera la risposta completa
-const gptReplyFull = await axios.post(
+const gptReply = await axios.post(
   'https://api.openai.com/v1/chat/completions',
   {
     model: 'gpt-4',
-    messages: gptMessages
+    messages: [
+      { role: 'system', content: systemPrompt },
+      ...userHistory.slice(-6),
+      { role: 'user', content: userMessage },
+      {
+        role: 'system',
+        content: `Ora rispondi all'utente con una consulenza personalizzata nel seguente formato JSON:
+{
+  "risposta": "testo lungo completo",
+  "sintesi": "stessa risposta sintetizzata in massimo 1000 caratteri"
+}
+Assicurati che 'sintesi' sia leggibile, chiara e non superi i 1000 caratteri.`
+      }
+    ]
   },
   {
     headers: {
@@ -197,29 +209,17 @@ const gptReplyFull = await axios.post(
   }
 );
 
-const fullReply = gptReplyFull.data.choices[0].message.content || "Non ho trovato una risposta utile.";
+const jsonText = gptReply.data.choices[0].message.content;
+let fullReply = "", summarizedReply = "";
 
-let summarizedReply = fullReply;
-
-if (fullReply.length > 950) {
-  const gptSummary = await axios.post(
-    'https://api.openai.com/v1/chat/completions',
-    {
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: 'Riassumi il seguente testo in massimo 1000 caratteri. Mantieni il significato chiave, chiarezza e utilità. Non aggiungere nulla, non spiegare cosa stai facendo.' },
-        { role: 'user', content: fullReply }
-      ]
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-    }
-  );
-
-  summarizedReply = gptSummary.data.choices[0].message.content || "Non ho trovato una risposta utile.";
+try {
+  const parsed = JSON.parse(jsonText);
+  fullReply = parsed.risposta;
+  summarizedReply = parsed.sintesi;
+} catch (e) {
+  console.error("❌ Errore parsing JSON:", jsonText);
+  fullReply = jsonText;
+  summarizedReply = jsonText.slice(0, 990) + "...";
 }
 
 console.log("📤 Risposta COMPLETA:", fullReply);
