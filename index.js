@@ -4,26 +4,27 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
-const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 
-// Connessione MongoDB
-const mongoClient = new MongoClient(process.env.MONGODB_URI, {
-  tls: true,
-  tlsAllowInvalidCertificates: true
-});
-let db, conversations;
+const HISTORY_FILE = path.join(__dirname, 'conversations.json');
 
-mongoClient.connect().then(() => {
-  db = mongoClient.db("chat_ai");
-  conversations = db.collection("logs");
-  console.log("✅ Connessione a MongoDB riuscita");
-}).catch(err => {
-  console.error("❌ Errore nella connessione MongoDB:", err.message);
-});
+// Funzione per caricare la cronologia da file
+function loadHistory() {
+  try {
+    const data = fs.readFileSync(HISTORY_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (e) {
+    return {};
+  }
+}
+
+// Funzione per salvare la cronologia su file
+function saveHistory(history) {
+  fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
+}
 
 // Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
@@ -65,7 +66,6 @@ app.post('/manychat', async (req, res) => {
     let userMessage = req.body.text || '';
     let origin = 'text';
 
-    // Controllo audio da URL lookaside
     if (userMessage.includes('lookaside.fbsbx.com')) {
       console.log('🎧 URL audio rilevato, procedo con la trascrizione...');
       const transcribed = await transcribeAudio(userMessage);
@@ -81,11 +81,9 @@ app.post('/manychat', async (req, res) => {
       return res.status(200).json({ message: "Non ho capito il messaggio, puoi ripetere?" });
     }
 
-    // Recupera cronologia
-    const previous = await conversations.findOne({ user_id: userId }) || { messages: [] };
-    const history = previous.messages || [];
+    const historyData = loadHistory();
+    const userHistory = historyData[userId]?.messages || [];
 
-    // Prompt originale completo
     const systemPrompt = `
 Sei un consulente genetico professionale, parte del team VitaeDNA.
 
@@ -159,12 +157,11 @@ Dopo aver raccolto tutte le informazioni, scrivi un consiglio articolato di alme
 “Il tuo DNA è la tua mappa. Noi ti aiutiamo a leggerla, così trovi la strada più breve verso il tuo obiettivo.”
 
 Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna, consiglia.
-`;
+    `;
 
-    // Preparazione messaggi per GPT
     const gptMessages = [
       { role: 'system', content: systemPrompt },
-      ...history.slice(-6),
+      ...userHistory.slice(-6),
       { role: 'user', content: userMessage }
     ];
 
@@ -186,21 +183,15 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
     console.log("📤 Risposta AI:", reply);
 
     // Salva cronologia
-    await conversations.updateOne(
-      { user_id: userId },
-      {
-        $push: {
-          messages: {
-            $each: [
-              { role: 'user', content: userMessage },
-              { role: 'assistant', content: reply }
-            ],
-            $slice: -20
-          }
-        }
-      },
-      { upsert: true }
-    );
+    const updated = historyData;
+    updated[userId] = {
+      messages: [
+        ...userHistory.slice(-18),
+        { role: 'user', content: userMessage },
+        { role: 'assistant', content: reply }
+      ]
+    };
+    saveHistory(updated);
 
     res.status(200).json({
       message: reply,
