@@ -206,10 +206,17 @@ Frase finale:
     };
     saveHistory(updated);
 
-    res.status(200).json({
-      message: reply,
-      origin: origin
-    });
+    // Risposta finale al client Manychat
+console.log("📤 Risposta AI:", reply);
+
+// Log di sicurezza per capire cosa inviamo a Manychat
+console.log("📦 Risposta inviata a Manychat:", { message: reply });
+
+// Risposta HTTP verso Manychat (richiede chiave "message")
+res.status(200).json({
+  message: reply || "Risposta non disponibile"
+});
+
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
