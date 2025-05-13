@@ -11,7 +11,10 @@ const app = express();
 app.use(bodyParser.json());
 
 // Connessione MongoDB
-const mongoClient = new MongoClient(process.env.MONGODB_URI);
+const mongoClient = new MongoClient(process.env.MONGODB_URI, {
+  tls: true,
+  tlsAllowInvalidCertificates: true
+});
 let db, conversations;
 
 mongoClient.connect().then(() => {
