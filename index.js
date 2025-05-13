@@ -237,7 +237,12 @@ updated[userId] = {
 saveHistory(updated);
 
 // Invia solo il riassunto a Manychat
-res.status(200).json({ message: summarizedReply });
+// Taglia la risposta sintetizzata se supera i 990 caratteri
+const safeReply = summarizedReply.length > 990
+  ? summarizedReply.slice(0, 990) + '...'
+  : summarizedReply;
+
+res.status(200).json({ message: safeReply });
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
