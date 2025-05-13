@@ -4,6 +4,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
@@ -14,20 +15,62 @@ app.use((req, res, next) => {
   next();
 });
 
-const HISTORY_FILE = path.join(__dirname, 'conversations.json');
-const recentUsers = {}; // Anti-messaggi doppi
 
-function loadHistory() {
+
+// MongoDB Connection
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const dbName = process.env.MONGODB_DB_NAME || 'vitaednaBot';
+const collectionName = 'conversations';
+let db;
+
+// Connect to MongoDB
+async function connectToMongo() {
   try {
-    const data = fs.readFileSync(HISTORY_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (e) {
-    return {};
+    const client = new MongoClient(mongoUri);
+    await client.connect();
+    console.log('✅ Connected to MongoDB');
+    db = client.db(dbName);
+    return db;
+  } catch (error) {
+    console.error('❌ MongoDB Connection Error:', error);
+    process.exit(1);
   }
 }
 
-function saveHistory(history) {
-  fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
+const recentUsers = {}; // Anti-messaggi doppi
+
+async function loadHistory(userId) {
+  try {
+    if (!db) {
+      console.log('⚠️ MongoDB not connected, connecting now...');
+      await connectToMongo();
+    }
+    
+    const conversation = await db.collection(collectionName).findOne({ userId });
+    return conversation ? conversation : { userId, messages: [] };
+  } catch (e) {
+    console.error('❌ Error loading history from MongoDB:', e);
+    return { userId, messages: [] };
+  }
+}
+
+async function saveHistory(userId, messages) {
+  try {
+    if (!db) {
+      console.log('⚠️ MongoDB not connected, connecting now...');
+      await connectToMongo();
+    }
+    
+    await db.collection(collectionName).updateOne(
+      { userId }, 
+      { $set: { userId, messages, updatedAt: new Date() } },
+      { upsert: true }
+    );
+    
+    console.log(`✅ History saved for user ${userId}`);
+  } catch (e) {
+    console.error('❌ Error saving history to MongoDB:', e);
+  }
 }
 
 async function transcribeAudio(audioUrl) {
@@ -90,14 +133,13 @@ app.post('/manychat', async (req, res) => {
       return res.status(200).json({ message: "Non ho capito il messaggio, puoi ripetere?" });
     }
 
-    const historyData = loadHistory();
-    const userHistory = historyData[userId]?.messages || [];
+    const userHistory = (await loadHistory(userId)).messages || [];
 
     const systemPrompt = `
-Sei Marco, un consulente genetico del team VitaeDNA. Il tuo compito è accompagnare l’utente in una consulenza personalizzata, umana e professionale ma con il fine ultimo di vendere il test del DNA.
+Sei Marco, un consulente genetico del team VitaeDNA. Il tuo compito è accompagnare l'utente in una consulenza personalizzata, umana e professionale ma con il fine ultimo di vendere il test del DNA.
 
 ### 🎯 Obiettivo:
-Aiuta l’utente a chiarire il suo obiettivo, esplorare i problemi, capire cosa ha già provato, e descrivere il suo stile di vita. Solo dopo aver raccolto informazioni **su tutti e 4 questi aspetti**, passa al consiglio personalizzato.
+Aiuta l'utente a chiarire il suo obiettivo, esplorare i problemi, capire cosa ha già provato, e descrivere il suo stile di vita. Solo dopo aver raccolto informazioni **su tutti e 4 questi aspetti**, passa al consiglio personalizzato.
 
 ### 📋 Domande da coprire prima del consiglio:
 1. Qual è il suo obiettivo?
@@ -105,7 +147,7 @@ Aiuta l’utente a chiarire il suo obiettivo, esplorare i problemi, capire cosa 
 3. Cosa ha già provato?
 4. Qual è il suo stile di vita oggi?
 
-👉 Se l’utente è vago, chiedi dettagli.  
+👉 Se l'utente è vago, chiedi dettagli.  
 👉 Se non ha ancora risposto su tutto, **non iniziare il consiglio**.
 
 ---
@@ -140,14 +182,14 @@ Aiuta l’utente a chiarire il suo obiettivo, esplorare i problemi, capire cosa 
 
 ### 💌 Alla fine:
 Chiedi:  
-> “Ti invio il PDF con il consiglio via email?”
+> "Ti invio il PDF con il consiglio via email?"
 
 ### 💬 Stile:
 Professionale, empatico, rassicurante. Ascolta, accompagna, consiglia.  
 Mai vendere. Non saltare i passaggi.
 
 Frase finale:  
-> “Il tuo DNA è la tua mappa. Noi ti aiutiamo a leggerla, così trovi la strada più breve verso il tuo obiettivo.”
+> "Il tuo DNA è la tua mappa. Noi ti aiutiamo a leggerla, così trovi la strada più breve verso il tuo obiettivo."
 
 ---
 
@@ -197,12 +239,12 @@ const gptReply = await axios.post(
       { role: 'user', content: userMessage },
       {
         role: 'system',
-  content: `‼️ Prima di scrivere il consiglio finale, assicurati che l’utente abbia risposto a TUTTE le 4 domande (obiettivo, difficoltà, tentativi precedenti, stile di vita). Se mancano informazioni, continua a fare domande. SOLO dopo rispondi nel formato JSON:
+  content: `‼️ Prima di scrivere il consiglio finale, assicurati che l'utente abbia risposto a TUTTE le 4 domande (obiettivo, difficoltà, tentativi precedenti, stile di vita). Se mancano informazioni, continua a fare domande. SOLO dopo rispondi nel formato JSON:
 {
   "risposta": "testo lungo completo",
   "sintesi": "stessa risposta, rivolta all'utente in forma diretta, chiara e sintetica, entro 1000 caratteri. Deve sembrare un messaggio umano, non una descrizione."
 }
-Assicurati che la 'sintesi' sia chiara, colloquiale e non descrittiva. Deve sembrare scritta da un consulente che si rivolge all’utente.`
+Assicurati che la 'sintesi' sia chiara, colloquiale e non descrittiva. Deve sembrare scritta da un consulente che si rivolge all'utente.`
 }
     ]
   },
@@ -231,15 +273,12 @@ console.log("📤 Risposta COMPLETA:", fullReply);
 console.log("📦 Sintesi inviata a Manychat:", { message: summarizedReply });
 
 // Salva cronologia con la risposta completa
-const updated = historyData;
-updated[userId] = {
-  messages: [
-    ...userHistory.slice(-18),
-    { role: 'user', content: userMessage },
-    { role: 'assistant', content: fullReply }
-  ]
-};
-saveHistory(updated);
+const updatedMessages = [
+  ...userHistory.slice(-18),
+  { role: 'user', content: userMessage },
+  { role: 'assistant', content: fullReply }
+];
+await saveHistory(userId, updatedMessages);
 
 // Invia solo il riassunto a Manychat
 // Taglia la risposta sintetizzata se supera i 990 caratteri
@@ -256,4 +295,11 @@ res.status(200).json({ message: safeReply });
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`✅ Server AI avviato sulla porta ${port}`));
+
+// Connect to MongoDB then start the server
+connectToMongo().then(() => {
+  app.listen(port, () => console.log(`✅ Server AI avviato sulla porta ${port}`));
+}).catch(err => {
+  console.error('Failed to connect to MongoDB, server not started:', err);
+});
+
