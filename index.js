@@ -177,10 +177,11 @@ Frase finale:
     `;
 
     const gptMessages = [
-      { role: 'system', content: systemPrompt },
-      ...userHistory.slice(-6),
-      { role: 'user', content: userMessage }
-    ];
+  { role: 'system', content: systemPrompt },
+  { role: 'system', content: 'Per motivi tecnici, mantieni ogni risposta sotto i 1000 caratteri. Sii chiaro e conciso.' },
+  ...userHistory.slice(-6),
+  { role: 'user', content: userMessage }
+];
 
     const gptReply = await axios.post(
       'https://api.openai.com/v1/chat/completions',
