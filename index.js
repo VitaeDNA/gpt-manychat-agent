@@ -182,36 +182,59 @@ Frase finale:
   ...userHistory.slice(-6),
   { role: 'user', content: userMessage }
 ];
+// Primo passaggio: genera la risposta completa
+const gptReplyFull = await axios.post(
+  'https://api.openai.com/v1/chat/completions',
+  {
+    model: 'gpt-4',
+    messages: gptMessages
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+  }
+);
 
-    const gptReply = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-4',
-        messages: gptMessages
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-      }
-    );
+const fullReply = gptReplyFull.data.choices[0].message.content || "Non ho trovato una risposta utile.";
 
-    const reply = gptReply.data.choices[0].message.content || "Non ho trovato una risposta utile.";
-    console.log("📤 Risposta AI:", reply);
-    console.log("📦 Risposta inviata a Manychat:", { message: reply });
+// Secondo passaggio: chiedi a GPT di sintetizzarla in max 1000 caratteri
+const gptSummary = await axios.post(
+  'https://api.openai.com/v1/chat/completions',
+  {
+    model: 'gpt-4',
+    messages: [
+      { role: 'system', content: 'Hai generato una consulenza per un cliente. Ora riassumila in massimo 1000 caratteri mantenendo chiarezza e utilità. Non aggiungere nulla.' },
+      { role: 'user', content: fullReply }
+    ]
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+  }
+);
 
-    const updated = historyData;
-    updated[userId] = {
-      messages: [
-        ...userHistory.slice(-18),
-        { role: 'user', content: userMessage },
-        { role: 'assistant', content: reply }
-      ]
-    };
-    saveHistory(updated);
+const summarizedReply = gptSummary.data.choices[0].message.content || "Non ho trovato una risposta utile.";
 
-    res.status(200).json({ message: reply });
+console.log("📤 Risposta COMPLETA:", fullReply);
+console.log("📦 Sintesi inviata a Manychat:", { message: summarizedReply });
+
+// Salva cronologia con la risposta completa
+const updated = historyData;
+updated[userId] = {
+  messages: [
+    ...userHistory.slice(-18),
+    { role: 'user', content: userMessage },
+    { role: 'assistant', content: fullReply }
+  ]
+};
+saveHistory(updated);
+
+// Invia solo il riassunto a Manychat
+res.status(200).json({ message: summarizedReply });
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
