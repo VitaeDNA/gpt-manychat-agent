@@ -200,10 +200,10 @@ const gptReply = await axios.post(
   content: `‼️ Prima di scrivere il consiglio finale, assicurati che l’utente abbia risposto a TUTTE le 4 domande (obiettivo, difficoltà, tentativi precedenti, stile di vita). Se mancano informazioni, continua a fare domande. SOLO dopo rispondi nel formato JSON:
 {
   "risposta": "testo lungo completo",
-  "sintesi": "stessa risposta sintetizzata in massimo 1000 caratteri"
+  "sintesi": "stessa risposta, rivolta all'utente in forma diretta, chiara e sintetica, entro 1000 caratteri. Deve sembrare un messaggio umano, non una descrizione."
 }
-Assicurati che 'sintesi' sia leggibile, chiara e non superi i 1000 caratteri.`
-      }
+Assicurati che la 'sintesi' sia chiara, colloquiale e non descrittiva. Deve sembrare scritta da un consulente che si rivolge all’utente.`
+}
     ]
   },
   {
