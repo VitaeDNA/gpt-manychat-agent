@@ -8,6 +8,11 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
+// Imposta un timeout di 9 secondi per tutte le risposte (Manychat timeout di default: 10s)
+app.use((req, res, next) => {
+  res.setTimeout(9000); // 9 secondi timeout
+  next();
+});
 
 const HISTORY_FILE = path.join(__dirname, 'conversations.json');
 const recentUsers = {}; // Anti-messaggi doppi
