@@ -10,8 +10,8 @@ const app = express();
 app.use(bodyParser.json());
 
 const HISTORY_FILE = path.join(__dirname, 'conversations.json');
+const recentUsers = {}; // Anti-messaggi doppi
 
-// Funzione per caricare la cronologia da file
 function loadHistory() {
   try {
     const data = fs.readFileSync(HISTORY_FILE, 'utf8');
@@ -21,12 +21,10 @@ function loadHistory() {
   }
 }
 
-// Funzione per salvare la cronologia su file
 function saveHistory(history) {
   fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
 }
 
-// Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
   try {
     const audioResponse = await axios.get(audioUrl, { responseType: 'arraybuffer' });
@@ -56,7 +54,6 @@ async function transcribeAudio(audioUrl) {
   }
 }
 
-// Endpoint principale per Manychat
 app.post('/manychat', async (req, res) => {
   console.log('✅ Webhook attivato!');
   console.log('📩 Corpo della richiesta:', JSON.stringify(req.body, null, 2));
@@ -65,6 +62,13 @@ app.post('/manychat', async (req, res) => {
     const userId = req.body.user_id;
     let userMessage = req.body.text || '';
     let origin = 'text';
+
+    const now = Date.now();
+    if (recentUsers[userId] && now - recentUsers[userId] < 2000) {
+      console.log('⏱️ Messaggio ignorato per evitare doppie risposte ravvicinate');
+      return res.status(200).json({ message: null });
+    }
+    recentUsers[userId] = now;
 
     if (userMessage.includes('lookaside.fbsbx.com')) {
       console.log('🎧 URL audio rilevato, procedo con la trascrizione...');
@@ -170,7 +174,7 @@ Frase finale:
 - Per ulteriori dubbi, indicare email **info@vitaedna.com** o telefono **0422 1833793**
 
 - Tutti i dati sono **protetti secondo GDPR** e non condivisi con terze parti.
-`;
+    `;
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
@@ -192,13 +196,10 @@ Frase finale:
       }
     );
 
-       const reply = gptReply.data.choices[0].message.content || "Non ho trovato una risposta utile.";
-
-    // Log di sicurezza e AI
+    const reply = gptReply.data.choices[0].message.content || "Non ho trovato una risposta utile.";
     console.log("📤 Risposta AI:", reply);
     console.log("📦 Risposta inviata a Manychat:", { message: reply });
 
-    // Salva cronologia su file
     const updated = historyData;
     updated[userId] = {
       messages: [
@@ -209,12 +210,7 @@ Frase finale:
     };
     saveHistory(updated);
 
-    // Risposta HTTP finale per Manychat
-    res.status(200).json({
-      message: reply
-    });
-
-
+    res.status(200).json({ message: reply });
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
