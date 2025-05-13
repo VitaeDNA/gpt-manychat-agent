@@ -192,10 +192,13 @@ Frase finale:
       }
     );
 
-    const reply = gptReply.data.choices[0].message.content;
-    console.log("📤 Risposta AI:", reply);
+       const reply = gptReply.data.choices[0].message.content || "Non ho trovato una risposta utile.";
 
-    // Salva cronologia
+    // Log di sicurezza e AI
+    console.log("📤 Risposta AI:", reply);
+    console.log("📦 Risposta inviata a Manychat:", { message: reply });
+
+    // Salva cronologia su file
     const updated = historyData;
     updated[userId] = {
       messages: [
@@ -206,16 +209,11 @@ Frase finale:
     };
     saveHistory(updated);
 
-    // Risposta finale al client Manychat
-console.log("📤 Risposta AI:", reply);
+    // Risposta HTTP finale per Manychat
+    res.status(200).json({
+      message: reply
+    });
 
-// Log di sicurezza per capire cosa inviamo a Manychat
-console.log("📦 Risposta inviata a Manychat:", { message: reply });
-
-// Risposta HTTP verso Manychat (richiede chiave "message")
-res.status(200).json({
-  message: reply || "Risposta non disponibile"
-});
 
 
   } catch (error) {
