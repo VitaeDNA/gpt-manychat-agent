@@ -18,7 +18,9 @@ mongoClient.connect().then(() => {
   db = mongoClient.db("chat_ai");
   conversations = db.collection("logs");
   console.log("✅ Connessione a MongoDB riuscita");
-}).catch(console.error);
+}).catch(err => {
+  console.error("❌ Errore nella connessione MongoDB:", err.message);
+});
 
 // Funzione per trascrivere audio da URL con Whisper
 async function transcribeAudio(audioUrl) {
@@ -190,7 +192,7 @@ Sii sempre professionale, chiaro, rassicurante. Non vendere. Ascolta, accompagna
               { role: 'user', content: userMessage },
               { role: 'assistant', content: reply }
             ],
-            $slice: -20 // Limita a ultimi 20 messaggi
+            $slice: -20
           }
         }
       },
