@@ -18,14 +18,19 @@ app.use((req, res, next) => {
 
 
 // MongoDB Connection
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const dbName = process.env.MONGODB_DB_NAME || 'vitaednaBot';
+const mongoUri = process.env.MONGODB_URI;
+const dbName = process.env.MONGODB_DB_NAME || 'ClusterBotVitae';
 const collectionName = 'conversations';
 let db;
 
 // Connect to MongoDB
 async function connectToMongo() {
   try {
+    if(!mongoUri) {
+      console.log('❌ MongoDB URI not found');
+      process.exit(1);
+    }
+
     const client = new MongoClient(mongoUri);
     await client.connect();
     console.log('✅ Connected to MongoDB');
