@@ -197,7 +197,7 @@ const gptReply = await axios.post(
       { role: 'user', content: userMessage },
       {
         role: 'system',
-        content: `Ora rispondi all'utente con una consulenza personalizzata nel seguente formato JSON:
+  content: `‼️ Prima di scrivere il consiglio finale, assicurati che l’utente abbia risposto a TUTTE le 4 domande (obiettivo, difficoltà, tentativi precedenti, stile di vita). Se mancano informazioni, continua a fare domande. SOLO dopo rispondi nel formato JSON:
 {
   "risposta": "testo lungo completo",
   "sintesi": "stessa risposta sintetizzata in massimo 1000 caratteri"
