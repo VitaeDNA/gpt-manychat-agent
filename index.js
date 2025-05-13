@@ -199,25 +199,28 @@ const gptReplyFull = await axios.post(
 
 const fullReply = gptReplyFull.data.choices[0].message.content || "Non ho trovato una risposta utile.";
 
-// Secondo passaggio: chiedi a GPT di sintetizzarla in max 1000 caratteri
-const gptSummary = await axios.post(
-  'https://api.openai.com/v1/chat/completions',
-  {
-    model: 'gpt-4',
-    messages: [
-      { role: 'system', content: 'Hai generato una consulenza per un cliente. Ora riassumila in massimo 1000 caratteri mantenendo chiarezza e utilità. Non aggiungere nulla.' },
-      { role: 'user', content: fullReply }
-    ]
-  },
-  {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-  }
-);
+let summarizedReply = fullReply;
 
-const summarizedReply = gptSummary.data.choices[0].message.content || "Non ho trovato una risposta utile.";
+if (fullReply.length > 950) {
+  const gptSummary = await axios.post(
+    'https://api.openai.com/v1/chat/completions',
+    {
+      model: 'gpt-4',
+      messages: [
+        { role: 'system', content: 'Riassumi il seguente testo in massimo 1000 caratteri. Mantieni il significato chiave, chiarezza e utilità. Non aggiungere nulla, non spiegare cosa stai facendo.' },
+        { role: 'user', content: fullReply }
+      ]
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+    }
+  );
+
+  summarizedReply = gptSummary.data.choices[0].message.content || "Non ho trovato una risposta utile.";
+}
 
 console.log("📤 Risposta COMPLETA:", fullReply);
 console.log("📦 Sintesi inviata a Manychat:", { message: summarizedReply });
