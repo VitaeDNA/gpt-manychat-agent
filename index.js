@@ -280,7 +280,7 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
     ];
     await saveHistory(userId, updatedMessages);
 
-    res.status(200).json({ responses: splitReplies });
+    res.status(200).json({ message: splitReplies[0] });
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
@@ -318,7 +318,7 @@ FORMATTO RICHIESTO:
     const gptResponse = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
-        model: "gpt-4",
+        model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7
       },
