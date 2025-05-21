@@ -268,19 +268,56 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
       }
     );
 
-    const fullReply = gptReply.data.choices[0].message.content;
-    const splitReplies = splitMessage(fullReply, 950);
+    // 1. prendi la risposta completa
+const fullReply = gptReply.data.choices[0].message.content;
 
-    console.log("📤 Risposta AI suddivisa:", splitReplies);
+// 2. se è troppo lunga (>1000), richiedi a GPT una sintesi
+let finalReply = fullReply;
+if (fullReply.length > 1000) {
+  console.log(`⚠️ Risposta troppo lunga (${fullReply.length} chars), genero una sintesi…`);
+  const summaryResponse = await axios.post(
+    'https://api.openai.com/v1/chat/completions',
+    {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: 'Sei un assistente che sintetizza testi mantenendo i punti chiave in massimo 1000 caratteri.'
+        },
+        {
+          role: 'user',
+          content: `Per favore, sintetizza questo testo in non più di 1000 caratteri:\n\n${fullReply}`
+        }
+      ],
+      temperature: 0.5
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      }
+    }
+  );
+  finalReply = summaryResponse.data.choices[0].message.content.trim();
+  console.log('📋 Sintesi generata:', finalReply.length, 'caratteri');
+}
 
-    const updatedMessages = [
-      ...userHistory.slice(-18),
-      { role: 'user', content: userMessage },
-      { role: 'assistant', content: fullReply }
-    ];
-    await saveHistory(userId, updatedMessages);
+// 3. suddividi in chunk da inviare a Manychat
+const splitReplies = splitMessage(finalReply, 950);
+console.log("📤 Risposta AI suddivisa:", splitReplies);
 
-    res.status(200).json({ responses: splitReplies });
+// 4. salva la history con il contesto + utente + risposta completa
+const updatedMessages = [
+  // se usavi slice sui 18 messaggi precedenti:
+  ...userHistory.slice(-18),
+  { role: 'user', content: userMessage },
+  { role: 'assistant', content: fullReply }
+];
+await saveHistory(userId, updatedMessages);
+
+// 5. restituisci a Manychat
+res.status(200).json({ responses: splitReplies });
+
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
