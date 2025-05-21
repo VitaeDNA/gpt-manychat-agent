@@ -280,7 +280,7 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
     ];
     await saveHistory(userId, updatedMessages);
 
-    res.status(200).json({ message: splitReplies[0] });
+    res.status(200).json({ responses: splitReplies });
 
   } catch (error) {
     console.error('❌ Errore:', error.response?.data || error.message);
