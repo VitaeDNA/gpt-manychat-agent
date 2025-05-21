@@ -333,6 +333,15 @@ FORMATTO RICHIESTO:
     ].filter(Boolean);
 
     const messages = blocks.flatMap(splitMessage);
+const fullText = messages.join("\n\n");
+
+const updatedMessages = [
+  { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
+  { role: 'assistant', content: fullText }
+];
+
+// Salva nel database
+await saveHistory(userId, updatedMessages);
 
     return res.status(200).json({ responses: messages });
   } catch (error) {
