@@ -340,7 +340,7 @@ FORMATTO RICHIESTO:
       `- Stile di vita:\n${stileGPT}`,
       `- Allenamento:\n${allenamentoGPT}\n\n${section.training || ""}`,
       `${section.cta || ""}`,
-      section.video ? `🎥 Video dedicato: ${section.video}` : "",
+      "🎥 A breve riceverai un video personalizzato con ulteriori spiegazioni specifiche per il tuo obiettivo.",
       `Per qualsiasi info puoi visitare il nostro sito https://www.vitaedna.com. E se hai qualsiasi dubbio o vuoi approfondire con un nostro esperto, chiama il +39 0422 1833793 per ricevere subito assistenza.`
     ].filter(Boolean);
 
