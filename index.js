@@ -355,7 +355,11 @@ const updatedMessages = [
 // Salva nel database
 await saveHistory(userId, updatedMessages);
 
-    return res.status(200).json({ responses: messages });
+const responseObject = {};
+messages.forEach((msg, idx) => {
+  responseObject[`response_${idx}`] = msg;
+});
+return res.status(200).json(responseObject);
   } catch (error) {
     console.error("❌ Errore nella generazione personalizzata:", error.response?.data || error.message);
     res.status(500).json({ message: "Errore nella generazione della consulenza personalizzata." });
