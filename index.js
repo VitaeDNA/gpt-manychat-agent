@@ -335,27 +335,29 @@ app.post('/vitdna-quiz', async (req, res) => {
       q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia
     } = req.body;
 
+     // mettiamo tutte le risposte utente in un blocco chiaro
+  const userInfo = `
+Informazioni utente:
+- Nome: ${nome}
+- Età: ${eta_utente}
+- Sesso: ${sesso}
+- Fisico: ${descrizione_fisico}
+- Obiettivo: ${obiettivo}
+- Ha già seguito diete: ${q6_dieta}
+- Macronutrienti medi: ${q7_macronutrienti}
+- Ore di allenamento a settimana: ${q8_allenamento}
+- Farmaci/Integratori in uso: ${q9_medicine || "nessuno"}
+- Patologia diagnosticata: ${q10_patologia || "nessuna"}
+`.trim();
+
     const prompt = `
 L'utente ha completato un quiz per ricevere consigli personalizzati su:
 - Alimentazione e integrazione
 - Stile di vita
 - Allenamento
-
-Dati dell'utente:
-- Nome: ${nome}
-- Età: ${eta_utente}
-- Sesso: ${sesso}
-- Descrizione fisica: ${descrizione_fisico}
-- Obiettivo: ${obiettivo}
-
-Risposte aggiuntive:
-6) ${q6_dieta}
-7) ${q7_macronutrienti}
-8) ${q8_allenamento}
-9) ${q9_medicine}
-10) ${q10_patologia}
-
-Per ogni sezione, genera solo i suggerimenti personalizzati (max 500 caratteri per sezione), con tono semplice, professionale e amichevole.
+${userInfo}
+Sei un esperto di nutrizione, stile di vita e allenamento.  
+Devi dare **soltanto** consigli personalizzati (max 500 caratteri per sezione) usando **tutte** le informazioni che l'utente ha fornito. Usa un tono semplice, professionale e amichevole. 
 Non scrivere introduzioni né conclusioni. Non nominare DNA o test genetici. Scrivi in italiano.
 
 FORMATTO RICHIESTO:
