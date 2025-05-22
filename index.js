@@ -327,7 +327,7 @@ res.status(200).json({ responses: splitReplies });
 
 app.post('/vitdna-quiz', async (req, res) => {
   try {
-    const { userId, nome, eta_utente, sesso, descrizione_fisico, obiettivo } = req.body;
+    const { user_id: userId, nome, eta_utente, sesso, descrizione_fisico, obiettivo, q6_metodo, q7_macro, q8_allenamento, q9_medicine, q10_patologia } = req.body;
 
     const prompt = `
 L'utente ha completato un quiz per ricevere consigli personalizzati su:
@@ -341,6 +341,13 @@ Dati dell'utente:
 - Sesso: ${sesso}
 - Descrizione fisica: ${descrizione_fisico}
 - Obiettivo: ${obiettivo}
+
+Risposte aggiuntive:
+6) ${q6_metodo}
+7) ${q7_macro}
+8) ${q8_allenamento}
+9) ${q9_medicine}
+10) ${q10_patologia}
 
 Per ogni sezione, genera solo i suggerimenti personalizzati (massimo 500 caratteri per sezione), con tono semplice, professionale e amichevole.
 
