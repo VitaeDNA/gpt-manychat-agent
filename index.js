@@ -388,26 +388,38 @@ const text = gptReply.data.choices[0].message.content;
     const allenamentoGPT  = mL[1].trim();
 
     const section = staticSections[obiettivo] || {};
-    const blocks = [
-      `Ciao ${nome}, ecco i consigli per te:`,
-      `- Alimentazione:\n${alimentazioneGPT}\n\n${section.nutrition || ""}`,
-      `- Stile di vita:\n${stileGPT}`,
-      `- Allenamento:\n${allenamentoGPT}\n\n${section.training || ""}`,
-      section.cta || "",
-      "🎥 A breve il video personalizzato…",
-      "Per domande: +39 0422 1833793"
-    ].filter(Boolean);
+   const singleAdvice = `
+- Alimentazione:
+${alimentazioneGPT}
 
-    const messages = blocks.flatMap(b => splitMessage(b));
-    const response = {};
-    messages.forEach((msg, i) => response[`response_${i}`] = msg);
+${section.nutrition || ""}
 
+- Stile di vita:
+${stileGPT}
+
+- Allenamento:
+${allenamentoGPT}
+
+${section.training || ""}
+
+${section.cta || ""}
+`.trim();
+
+const messages = splitMessage(singleAdvice);
+
+   const responsePayload = {};
+    messages.forEach((msg, i) => {
+      responsePayload[`response_${i}`] = msg;
+    });
+
+    // salva prima di restituire
     await saveHistory(userId, [
       { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
       { role: 'assistant', content: messages.join("\n\n") }
     ]);
 
-    return res.json(response);
+    // unico return
+    return res.json(responsePayload);
 
   } catch (err) {
     // 2) Logga l’errore completo (inclusa response.data di OpenAI, se presente)
