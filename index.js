@@ -326,7 +326,7 @@ res.status(200).json({ responses: splitReplies });
 });
 
 app.post('/vitdna-quiz', async (req, res) => {
-    console.log('▶️ /vitdna-quiz body:', JSON.stringify(req.body));
+  console.log('▶️ /vitdna-quiz body:', JSON.stringify(req.body));
   try {
     const {
       user_id: userId,
@@ -334,8 +334,8 @@ app.post('/vitdna-quiz', async (req, res) => {
       q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia
     } = req.body;
 
-     // mettiamo tutte le risposte utente in un blocco chiaro
-  const userInfo = `
+    // 1) mettiamo tutte le risposte utente in un blocco chiaro
+    const userInfo = `
 Nome: ${nome}
 Età: ${eta_utente}
 Sesso: ${sesso}
@@ -348,65 +348,73 @@ Farmaci/Integratori: ${q9_medicine || 'nessuno'}
 Patologia diagnosticata: ${q10_patologia || 'nessuna'}
 `.trim();
 
-     const messages = [
-    {
-      role: 'system',
-      content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita .  
+    // 2) definiamo chatMessages per OpenAI
+    const chatMessages = [
+      {
+        role: 'system',
+        content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita.
 Devi fornire SOLO consigli personalizzati su:
 1) Alimentazione
 2) Stile di vita
 3) Allenamento
 
-– Massimo 500 caratteri per sezione.  
-- Usa TUTTE le informazioni che l'utente ha fornito
-– Usa un tono semplice, professionale e amichevole.  
-– NON abbreviare con "…" né troncate a metà le frasi.  
-– NON nominare DNA o test genetici.  
-- NON scrivere introduzioni né conclusioni
+– Massimo 500 caratteri per sezione.
+– Usa TUTTE le informazioni che l'utente ha fornito.
+– Usa un tono semplice, professionale e amichevole.
+– NON abbreviare con "…" né troncare a metà le frasi.
+– NON nominare DNA o test genetici.
+– NON scrivere introduzioni né conclusioni.
 – Scrivi in italiano.`
-    },
-    {
-      role: 'user',
-      content: `Ecco i dati dell'utente:
+      },
+      {
+        role: 'user',
+        content: `Ecco i dati dell'utente:
 ${userInfo}
 
 FORMATTO RICHIESTO (ripeti esattamente queste etichette):
 [ALIMENTAZIONE]
 [STILE DI VITA]
 [ALLENAMENTO]`
-    }
-  ];
-const gptReply = await axios.post(
-  'https://api.openai.com/v1/chat/completions',
-  {
-    model: "gpt-3.5-turbo",
-    messages,
-    temperature: 0.7
-  },
-  {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    }
-  }
-);
-const text = gptReply.data.choices[0].message.content;
-    // Estrazione via regex
+      }
+    ];
+
+    // 3) chiamata a OpenAI
+    const gptReply = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-3.5-turbo',
+        messages: chatMessages,
+        temperature: 0.7
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+        }
+      }
+    );
+    const text = gptReply.data.choices[0].message.content;
+
+    // 4) estrazione via regex
     const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
     const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
-    if (!mA || !mS || !mL) throw new Error("Formato risposta AI non valido");
+    if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
     const alimentazioneGPT = mA[1].trim();
     const stileGPT        = mS[1].trim();
     const allenamentoGPT  = mL[1].trim();
 
-    const section = staticSections[obiettivo] || {};
-   const singleAdvice = `
+    // 5) recuperiamo la sezione statica
+    const key     = obiettivo.toLowerCase();
+    const section = staticSections[key] || {};
+
+    // 6) costruzione del testo completo (inclusa la cta una sola volta)
+    const fullAdvice = `
 - Alimentazione:
 ${alimentazioneGPT}
 
-${section.nutrition || ""}
+${section.nutrition || ''}
 
 - Stile di vita:
 ${stileGPT}
@@ -414,37 +422,34 @@ ${stileGPT}
 - Allenamento:
 ${allenamentoGPT}
 
-${section.training || ""}
+${section.training || ''}
+
+${section.cta || ''}
 `.trim();
 
-const chunks = splitMessage(singleAdvice);
-if (section.cta) {
-  chunks.push(...splitMessage(section.cta));
-}
-   const responsePayload = {};
-    chunks.forEach((msg, i) => {
-      responsePayload[`response_${i}`] = msg;
+    // 7) split in chunk da inviare a ManyChat
+    const chunks = splitMessage(fullAdvice);
+
+    // 8) prepara il payload
+    const responsePayload = {};
+    chunks.forEach((chunk, i) => {
+      responsePayload[`response_${i}`] = chunk;
     });
 
-    // Carica la history esistente prima di salvare
+    // 9) salva in history
     const userHistory = (await loadHistory(userId)).messages || [];
-    
-    // salva prima di restituire, aggiungendo i nuovi messaggi alla history esistente
     await saveHistory(userId, [
       ...userHistory,
       { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
-      { role: 'assistant', content: chunks.join("\n\n") }
+      { role: 'assistant', content: fullAdvice }
     ]);
 
-    // unico return
+    // 10) restituisci la risposta
     return res.json(responsePayload);
 
   } catch (err) {
-    // 2) Logga l’errore completo (inclusa response.data di OpenAI, se presente)
     console.error('❌ Errore nella generazione personalizzata:', err.response?.data || err);
-
-    // 3) Mantieni la risposta generica a Manychat
-    return res.status(500).json({ message: "Errore nella generazione della consulenza personalizzata." });
+    return res.status(500).json({ message: 'Errore nella generazione della consulenza personalizzata.' });
   }
 });
 
