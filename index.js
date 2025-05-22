@@ -398,7 +398,7 @@ const text = gptReply.data.choices[0].message.content;
       "Per domande: +39 0422 1833793"
     ].filter(Boolean);
 
-    const messages = blocks.flatMap(splitMessage);
+    const messages = blocks.flatMap(b => splitMessage(b));
     const response = {};
     messages.forEach((msg, i) => response[`response_${i}`] = msg);
 
