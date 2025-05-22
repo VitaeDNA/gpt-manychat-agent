@@ -337,39 +337,51 @@ app.post('/vitdna-quiz', async (req, res) => {
 
      // mettiamo tutte le risposte utente in un blocco chiaro
   const userInfo = `
-Informazioni utente:
-- Nome: ${nome}
-- Età: ${eta_utente}
-- Sesso: ${sesso}
-- Fisico: ${descrizione_fisico}
-- Obiettivo: ${obiettivo}
-- Ha già seguito diete: ${q6_dieta}
-- Macronutrienti medi: ${q7_macronutrienti}
-- Ore di allenamento a settimana: ${q8_allenamento}
-- Farmaci/Integratori in uso: ${q9_medicine || "nessuno"}
-- Patologia diagnosticata: ${q10_patologia || "nessuna"}
+Nome: ${nome}
+Età: ${eta_utente}
+Sesso: ${sesso}
+Descrizione fisico: ${descrizione_fisico}
+Obiettivo: ${obiettivo}
+Ha già seguito diete: ${q6_dieta}
+Macronutrienti medi: ${q7_macronutrienti}
+Ore di allenamento/sett.: ${q8_allenamento}
+Farmaci/Integratori: ${q9_medicine || 'nessuno'}
+Patologia diagnosticata: ${q10_patologia || 'nessuna'}
 `.trim();
 
-    const prompt = `
-L'utente ha completato un quiz per ricevere consigli personalizzati su:
-- Alimentazione e integrazione
-- Stile di vita
-- Allenamento
-${userInfo}
-Sei un esperto di nutrizione, stile di vita e allenamento.  
-Devi dare **soltanto** consigli personalizzati (max 500 caratteri per sezione) usando **tutte** le informazioni che l'utente ha fornito. Usa un tono semplice, professionale e amichevole. 
-Non scrivere introduzioni né conclusioni. Non nominare DNA o test genetici. Scrivi in italiano.
+     const messages = [
+    {
+      role: 'system',
+      content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita .  
+Devi fornire SOLO consigli personalizzati su:
+1) Alimentazione
+2) Stile di vita
+3) Allenamento
 
-FORMATTO RICHIESTO:
+– Massimo 500 caratteri per sezione.  
+- Usa TUTTE le informazioni che l'utente ha fornito
+– Usa un tono semplice, professionale e amichevole.  
+– NON abbreviare con "…" né troncate a metà le frasi.  
+– NON nominare DNA o test genetici.  
+- NON scrivere introduzioni né conclusioni
+– Scrivi in italiano.`
+    },
+    {
+      role: 'user',
+      content: `Ecco i dati dell'utente:
+${userInfo}
+
+FORMATTO RICHIESTO (ripeti esattamente queste etichette):
 [ALIMENTAZIONE]
 [STILE DI VITA]
-[ALLENAMENTO]
-`;
+[ALLENAMENTO]`
+    }
+  ];
 const gptReply = await axios.post(
   'https://api.openai.com/v1/chat/completions',
   {
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt }],
+    messages,
     temperature: 0.7
   },
   {
@@ -406,10 +418,10 @@ ${allenamentoGPT}
 ${section.training || ""}
 `.trim();
 
-const messages = splitMessage(singleAdvice);
+const chunks = splitMessage(singleAdvice);
 
    const responsePayload = {};
-    messages.forEach((msg, i) => {
+    chunks.forEach((msg, i) => {
       responsePayload[`response_${i}`] = msg;
     });
 
@@ -420,7 +432,7 @@ const messages = splitMessage(singleAdvice);
     await saveHistory(userId, [
       ...userHistory,
       { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
-      { role: 'assistant', content: messages.join("\n\n") }
+      { role: 'assistant', content: chunks.join("\n\n") }
     ]);
 
     // unico return
