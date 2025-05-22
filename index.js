@@ -415,11 +415,12 @@ ${stileGPT}
 ${allenamentoGPT}
 
 ${section.training || ""}
-${section.cta || ""}
 `.trim();
 
 const chunks = splitMessage(singleAdvice);
-
+if (section.cta) {
+  chunks.push(...splitMessage(section.cta));
+}
    const responsePayload = {};
     chunks.forEach((msg, i) => {
       responsePayload[`response_${i}`] = msg;
