@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   res.setTimeout(9000); // 9 secondi timeout
   next();
 });
-function splitMessage(text, maxLength = 950) {
+function splitMessage(text, maxLength = 999) {
   const parts = [];
   let remainingText = text.trim();
 
@@ -303,7 +303,7 @@ if (fullReply.length > 1000) {
 }
 
 // 3. suddividi in chunk da inviare a Manychat
-const splitReplies = splitMessage(finalReply, 950);
+const splitReplies = splitMessage(finalReply, 999);
 console.log("📤 Risposta AI suddivisa:", splitReplies);
 
 // 4. salva la history con il contesto + utente + risposta completa
