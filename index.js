@@ -405,9 +405,7 @@ ${section.training || ""}
 `.trim();
 
 const messages = splitMessage(singleAdvice);
-if (section.cta) {
-  messages.push(...splitMessage(section.cta));
-}
+
    const responsePayload = {};
     messages.forEach((msg, i) => {
       responsePayload[`response_${i}`] = msg;
