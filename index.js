@@ -326,6 +326,7 @@ res.status(200).json({ responses: splitReplies });
 });
 
 app.post('/vitdna-quiz', async (req, res) => {
+    console.log('▶️ /vitdna-quiz body:', JSON.stringify(req.body));
   try {
     const {
       user_id: userId,
@@ -406,7 +407,10 @@ FORMATTO RICHIESTO:
     return res.json(response);
 
   } catch (err) {
-    console.error("❌ Errore nella generazione personalizzata:", err.stack || err.message);
+    // 2) Logga l’errore completo (inclusa response.data di OpenAI, se presente)
+    console.error('❌ Errore nella generazione personalizzata:', err.response?.data || err);
+
+    // 3) Mantieni la risposta generica a Manychat
     return res.status(500).json({ message: "Errore nella generazione della consulenza personalizzata." });
   }
 });
