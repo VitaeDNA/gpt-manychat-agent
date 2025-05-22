@@ -250,14 +250,15 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
+      ...userHistory.slice(-6),  // Include last 6 messages from history
       { role: 'user', content: userMessage }
     ];
 
-  const ai = await axios.post(
+  const gptReply = await axios.post(
   'https://api.openai.com/v1/chat/completions',
   {
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt }],
+    messages: gptMessages,  // Use the properly defined gptMessages array
     temperature: 0.7
   },
   {
@@ -412,8 +413,12 @@ if (section.cta) {
       responsePayload[`response_${i}`] = msg;
     });
 
-    // salva prima di restituire
+    // Carica la history esistente prima di salvare
+    const userHistory = (await loadHistory(userId)).messages || [];
+    
+    // salva prima di restituire, aggiungendo i nuovi messaggi alla history esistente
     await saveHistory(userId, [
+      ...userHistory,
       { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
       { role: 'assistant', content: messages.join("\n\n") }
     ]);
