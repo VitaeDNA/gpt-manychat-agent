@@ -327,7 +327,11 @@ res.status(200).json({ responses: splitReplies });
 
 app.post('/vitdna-quiz', async (req, res) => {
   try {
-    const { user_id: userId, nome, eta_utente, sesso, descrizione_fisico, obiettivo, q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia } = req.body;
+    const {
+      user_id: userId,
+      nome, eta_utente, sesso, descrizione_fisico, obiettivo,
+      q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia
+    } = req.body;
 
     const prompt = `
 L'utente ha completato un quiz per ricevere consigli personalizzati su:
@@ -349,9 +353,8 @@ Risposte aggiuntive:
 9) ${q9_medicine}
 10) ${q10_patologia}
 
-Per ogni sezione, genera solo i suggerimenti personalizzati (massimo 500 caratteri per sezione), con tono semplice, professionale e amichevole.
-
-Non scrivere introduzioni, né conclusioni. Non nominare il DNA o test genetici. Scrivi in italiano.
+Per ogni sezione, genera solo i suggerimenti personalizzati (max 500 caratteri per sezione), con tono semplice, professionale e amichevole.
+Non scrivere introduzioni né conclusioni. Non nominare DNA o test genetici. Scrivi in italiano.
 
 FORMATTO RICHIESTO:
 [ALIMENTAZIONE]
@@ -359,54 +362,52 @@ FORMATTO RICHIESTO:
 [ALLENAMENTO]
 `;
 
-    const gptResponse = await axios.post(
+    const ai = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        }
-      }
+      { headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` } }
     );
+    const text = ai.data.choices[0].message.content;
 
-    const parts = gptResponse.data.choices[0].message.content.split("\n").filter(Boolean);
-    const [alimentazioneGPT, stileGPT, allenamentoGPT] = parts;
+    // Estrazione via regex
+    const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
+    const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
+    const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
+    if (!mA || !mS || !mL) throw new Error("Formato risposta AI non valido");
+
+    const alimentazioneGPT = mA[1].trim();
+    const stileGPT        = mS[1].trim();
+    const allenamentoGPT  = mL[1].trim();
 
     const section = staticSections[obiettivo] || {};
     const blocks = [
-      `Ciao ${nome}, di seguito ti riportiamo una serie di consigli mirati per raggiungere il tuo obiettivo nel più breve tempo possibile:`,
-      `- Alimentazione e integrazione:\n${alimentazioneGPT}\n\n${section.nutrition || ""}`,
+      `Ciao ${nome}, ecco i consigli per te:`,
+      `- Alimentazione:\n${alimentazioneGPT}\n\n${section.nutrition || ""}`,
       `- Stile di vita:\n${stileGPT}`,
       `- Allenamento:\n${allenamentoGPT}\n\n${section.training || ""}`,
-      `${section.cta || ""}`,
-      "🎥 A breve riceverai un video personalizzato con ulteriori spiegazioni specifiche per il tuo obiettivo.",
-      `Per qualsiasi info puoi visitare il nostro sito https://www.vitaedna.com. E se hai qualsiasi dubbio o vuoi approfondire con un nostro esperto, chiama il +39 0422 1833793 per ricevere subito assistenza.`
+      section.cta || "",
+      "🎥 A breve il video personalizzato…",
+      "Per domande: +39 0422 1833793"
     ].filter(Boolean);
 
     const messages = blocks.flatMap(splitMessage);
-const fullText = messages.join("\n\n");
+    const response = {};
+    messages.forEach((msg, i) => response[`response_${i}`] = msg);
 
-const updatedMessages = [
-  { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
-  { role: 'assistant', content: fullText }
-];
+    await saveHistory(userId, [
+      { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
+      { role: 'assistant', content: messages.join("\n\n") }
+    ]);
 
-// Salva nel database
-await saveHistory(userId, updatedMessages);
+    return res.json(response);
 
-const responseObject = {};
-messages.forEach((msg, idx) => {
-  responseObject[`response_${idx}`] = msg;
-});
-return res.status(200).json(responseObject);
-  } catch (error) {
-    console.error("❌ Errore nella generazione personalizzata:", error.response?.data || error.message);
-    res.status(500).json({ message: "Errore nella generazione della consulenza personalizzata." });
+  } catch (err) {
+    console.error("❌ Errore nella generazione personalizzata:", err.stack || err.message);
+    return res.status(500).json({ message: "Errore nella generazione della consulenza personalizzata." });
   }
 });
 
