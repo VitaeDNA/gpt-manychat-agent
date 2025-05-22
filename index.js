@@ -247,7 +247,6 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
     Stile: professionale, rassicurante, mai aggressivo.
     `;
 
-
     const gptMessages = [
       { role: 'system', content: systemPrompt },
       ...userHistory.slice(-6),  // Include last 6 messages from history
@@ -416,6 +415,7 @@ ${stileGPT}
 ${allenamentoGPT}
 
 ${section.training || ""}
+${section.cta || ""}
 `.trim();
 
 const chunks = splitMessage(singleAdvice);
