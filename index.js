@@ -412,14 +412,9 @@ FORMATTO RICHIESTO (ripeti esattamente queste etichette):
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
     if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
-    const alimentazioneGPT = mA[1].trim();
-    const stileGPT        = mS[1].trim();
-    const allenamentoGPT  = mL[1].trim();
-
-        // rimuovi eventuali CTA inserite da GPT:
-  let alimentazioneGPT = stripCtaLines(mA[1].trim());
-  let stileGPT        = stripCtaLines(mS[1].trim());
-  let allenamentoGPT  = stripCtaLines(mL[1].trim());
+   const alimentazioneGPT = stripCtaLines(mA[1]);
+  const stileGPT        = stripCtaLines(mS[1]);
+  const allenamentoGPT  = stripCtaLines(mL[1]);
 
     // 5) recuperiamo la sezione statica
     const key     = obiettivo.toLowerCase();
