@@ -410,15 +410,16 @@ FORMATTO RICHIESTO (ripeti esattamente queste etichette):
     const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
     const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
-    // rimuovi eventuali CTA inserite da GPT:
-alimentazioneGPT = stripCtaLines(alimentazioneGPT);
-stileGPT        = stripCtaLines(stileGPT);
-allenamentoGPT  = stripCtaLines(allenamentoGPT);
     if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
     const alimentazioneGPT = mA[1].trim();
     const stileGPT        = mS[1].trim();
     const allenamentoGPT  = mL[1].trim();
+
+        // rimuovi eventuali CTA inserite da GPT:
+  let alimentazioneGPT = stripCtaLines(mA[1].trim());
+  let stileGPT        = stripCtaLines(mS[1].trim());
+  let allenamentoGPT  = stripCtaLines(mL[1].trim());
 
     // 5) recuperiamo la sezione statica
     const key     = obiettivo.toLowerCase();
