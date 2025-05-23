@@ -352,25 +352,35 @@ Patologia diagnosticata: ${q10_patologia || 'nessuna'}
     const chatMessages = [
       {
         role: 'system',
-        content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita. Hai letto tutti i dati ${userInfo} dell'utente che ha fornito e sulla base di tali dati, devi offrire consigli personalizzati.
-Devi fornire SOLO consigli personalizzati su:
-1) Alimentazione: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornito, offri consigli precisi, cibi specifici o una piccola dieta
-2) Stile di vita: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornit,offri consigli precisi
-3) Allenamento: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornito, offri consigli precisi, allenamenti specifici per un determinato obiettivo o una piccola scheda di allenamento
+            content: `Sei un nutrizionista e coach sportivo. Hai davanti i seguenti dati dell’utente:
+${userInfo}
 
-– Massimo 700 caratteri per sezione.
+Sulla base di **ciascuna** di queste informazioni, devi generare:
+
+[ALIMENTAZIONE]  
+• 2–3 cibi o mini-pasti specifici con porzioni (adatta a età, sesso, fisico, obiettivo, patologie, farmaci, macro attuali e storie diete).  
+• Una breve regolazione dei macronutrienti se serve.
+
+[STILE DI VITA]  
+• 2–3 abitudini quotidiane concrete (sonno, idratazione, stress, recupero) mirate al suo profilo.
+
+[ALLENAMENTO]  
+• 2–3 esercizi o un mini-programma (frequenza, durate, intensità) adatti a età, livello di attività e obiettivo.
+
+REGOLE che devi seguire:
+- NON troncare con “…”. 
+– Massimo 900 caratteri per sezione.
+– Tutte le sezioni devono essere riportate nel modo richiesto senza saltare nulla.
 – Usa TUTTE le informazioni che l'utente ha fornito ${userInfo} per creare consigli personale e creati apposta per lui, non essere vago.
 – Usa un tono semplice, professionale e amichevole.
-– NON abbreviare con "…" né troncare a metà le frasi. Questo è importantissimo e obbligatorio. Tutte le sezioni devono essere riportate nel modo richiesto senza saltare nulla.
+– NON essere vago: usa nomi di alimenti, numeri, tempi.  
 – NON nominare DNA o test genetici.
 – NON scrivere introduzioni né conclusioni.
 – Scrivi in italiano.`
       },
       {
         role: 'user',
-        content: `Ecco i dati dell'utente:
-${userInfo}
-
+        content: `
 FORMATTO RICHIESTO (ripeti esattamente queste etichette):
 [ALIMENTAZIONE]
 [STILE DI VITA]
