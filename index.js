@@ -368,7 +368,8 @@ Sulla base di **ciascuna** di queste informazioni, devi generare:
 • 2–3 esercizi o un mini-programma (frequenza, durate, intensità) adatti a età, livello di attività e obiettivo.
 
 REGOLE che devi seguire:
-- NON troncare con “…”. 
+- NON troncare con “…”.
+- NON includere **in alcun modo** referenze a test genetici, call-to-action, link o inviti all’acquisto.
 – Massimo 900 caratteri per sezione.
 – Tutte le sezioni devono essere riportate nel modo richiesto senza saltare nulla.
 – Usa TUTTE le informazioni che l'utente ha fornito ${userInfo} per creare consigli personale e creati apposta per lui, non essere vago.
@@ -409,6 +410,10 @@ FORMATTO RICHIESTO (ripeti esattamente queste etichette):
     const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
     const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
+    // rimuovi eventuali CTA inserite da GPT:
+alimentazioneGPT = stripCtaLines(alimentazioneGPT);
+stileGPT        = stripCtaLines(stileGPT);
+allenamentoGPT  = stripCtaLines(allenamentoGPT);
     if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
     const alimentazioneGPT = mA[1].trim();
@@ -434,6 +439,7 @@ ${allenamentoGPT}
 
 ${section.training || ''}
 
+${section.cta || ''}
 `.trim();
 
     // 7) split in chunk da inviare a ManyChat
