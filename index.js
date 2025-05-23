@@ -28,6 +28,14 @@ function splitMessage(text, maxLength = 999) {
   if (remainingText.length > 0) parts.push(remainingText);
   return parts;
 }
+// Aggiungi qui, prima degli handler:
+function stripCtaLines(text) {
+  return text
+    .split('\n')
+    .filter(line => !/(https?:\/\/|chiama|info@|\+39|vitaedna\.com)/i.test(line))
+    .join('\n')
+    .trim();
+}
 
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI;
