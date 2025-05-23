@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   res.setTimeout(9000); // 9 secondi timeout
   next();
 });
-function splitMessage(text, maxLength = 999) {
+function splitMessage(text, maxLength = 980) {
   const parts = [];
   let remainingText = text.trim();
 
@@ -363,19 +363,18 @@ Patologia diagnosticata: ${q10_patologia || 'nessuna'}
             content: `Sei un nutrizionista e coach sportivo. Hai davanti i seguenti dati dell’utente:
 ${userInfo}
 
-Sulla base di **ciascuna** di queste informazioni, devi generare:
-
+Sulla base di *ciascuna* informazione, genera **solo** tre sezioni:
 [ALIMENTAZIONE]  
-• 2–3 cibi o mini-pasti specifici con porzioni (adatta a età, sesso, fisico, obiettivo, patologie, farmaci, macro attuali e storie diete).  
-• Una breve regolazione dei macronutrienti se serve.
+• 2–3 cibi o mini-pasti concreti con porzioni (es. “150 g petto di pollo + 200 g broccoli”).  
+• Rapida modifica dei macronutrienti se serve (es. “aumenta proteine a 2 g/kg”).
 
 [STILE DI VITA]  
-• 2–3 abitudini quotidiane concrete (sonno, idratazione, stress, recupero) mirate al suo profilo.
+• 2–3 azioni quotidiane pratiche (es. sonno, idratazione, recupero, gestione stress).
 
 [ALLENAMENTO]  
-• 2–3 esercizi o un mini-programma (frequenza, durate, intensità) adatti a età, livello di attività e obiettivo.
+• 2–3 esercizi o mini-programma (es. frequenza, durata, intensità) perfetti per età, livello e obiettivo.
 
-REGOLE che devi seguire:
+**REGOLE**:
 - NON troncare con “…”.
 - NON includere **in alcun modo** referenze a test genetici, call-to-action, link o inviti all’acquisto.
 – Massimo 900 caratteri per sezione.
@@ -390,7 +389,7 @@ REGOLE che devi seguire:
       {
         role: 'user',
         content: `
-FORMATTO RICHIESTO (ripeti esattamente queste etichette):
+Formato di uscita **esatto** (includi le etichette):
 [ALIMENTAZIONE]
 [STILE DI VITA]
 [ALLENAMENTO]`
@@ -403,7 +402,8 @@ FORMATTO RICHIESTO (ripeti esattamente queste etichette):
       {
         model: 'gpt-3.5-turbo',
         messages: chatMessages,
-        temperature: 0.7
+        temperature: 0,
+        max_tokens: 2000
       },
       {
         headers: {
@@ -421,8 +421,8 @@ FORMATTO RICHIESTO (ripeti esattamente queste etichette):
     if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
    const alimentazioneGPT = stripCtaLines(mA[1]);
-  const stileGPT        = stripCtaLines(mS[1]);
-  const allenamentoGPT  = stripCtaLines(mL[1]);
+  const stileGPT = stripCtaLines(mS[1]);
+  const allenamentoGPT = stripCtaLines(mL[1]);
 
     // 5) recuperiamo la sezione statica
     const key     = obiettivo.toLowerCase();
