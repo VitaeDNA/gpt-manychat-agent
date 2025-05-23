@@ -352,11 +352,11 @@ Patologia diagnosticata: ${q10_patologia || 'nessuna'}
     const chatMessages = [
       {
         role: 'system',
-        content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita.
+        content: `Sei un nutrizionista, allenatore esperto ed esperto di stile di vita. Hai letto tutti i dati ${userInfo} dell'utente che ha fornito e sulla base di tali dati, devi offrire consigli personalizzati.
 Devi fornire SOLO consigli personalizzati su:
-1) Alimentazione: basandoti sui dati ${userInfo} dell'utente, offri consigli precisi, cibi specifici o una piccola dieta
-2) Stile di vita: basandoti sui dat ${userInfo} dell'utente,offri consigli precisi
-3) Allenamento: basandoti sui dati ${userInfo} dell'utente, offri consigli precisi, allenamenti specifici per un determinato obiettivo o una piccola scheda di allenamento
+1) Alimentazione: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornito, offri consigli precisi, cibi specifici o una piccola dieta
+2) Stile di vita: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornit,offri consigli precisi
+3) Allenamento: basandoti sull'Obiettivo ${obiettivo} dell'utente e tutti i dati ${userInfo} dell'utente che ha fornito, offri consigli precisi, allenamenti specifici per un determinato obiettivo o una piccola scheda di allenamento
 
 – Massimo 700 caratteri per sezione.
 – Usa TUTTE le informazioni che l'utente ha fornito ${userInfo} per creare consigli personale e creati apposta per lui, non essere vago.
@@ -424,7 +424,6 @@ ${allenamentoGPT}
 
 ${section.training || ''}
 
-${section.cta || ''}
 `.trim();
 
     // 7) split in chunk da inviare a ManyChat
