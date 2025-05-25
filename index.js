@@ -362,6 +362,9 @@ Sulla base di *ciascuna* informazione, genera **solo** tre sezioni:
 • 2–3 cibi o mini-pasti concreti con porzioni (es. “150 g petto di pollo + 200 g broccoli”).  
 • Rapida modifica dei macronutrienti se serve (es. “aumenta proteine a 2 g/kg”).
 
+[INTEGRAZIONE]  
+• 2–3 integratori o nutrienti specifici (dosaggi, tempi di assunzione) adatti al profilo e all’obiettivo.
+
 [STILE DI VITA]  
 • 2–3 azioni quotidiane pratiche (es. sonno, idratazione, recupero, gestione stress).
 
@@ -385,6 +388,7 @@ Sulla base di *ciascuna* informazione, genera **solo** tre sezioni:
         content: `
 Formato di uscita **esatto** (includi le etichette):
 [ALIMENTAZIONE]
+[INTEGRAZIONE]
 [STILE DI VITA]
 [ALLENAMENTO]`
       }
@@ -410,11 +414,13 @@ Formato di uscita **esatto** (includi le etichette):
 
     // 4) estrazione via regex
     const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
+    const mI = text.match(/\[INTEGRAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
     const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
     if (!mA || !mS || !mL) throw new Error('Formato risposta AI non valido');
 
 let alimentazioneGPT = stripCtaLines(mA[1]);
+let integrazioneGPT  = mI[1].trim();
 let stileGPT        = stripCtaLines(mS[1]);
 let allenamentoGPT  = stripCtaLines(mL[1]);
 
@@ -428,6 +434,9 @@ let allenamentoGPT  = stripCtaLines(mL[1]);
 ${alimentazioneGPT}
 
 ${section.nutrition || ''}
+
+- Integrazione:
+${integrazioneGPT}
 
 - Stile di vita:
 ${stileGPT}
