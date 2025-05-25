@@ -357,7 +357,7 @@ Patologia diagnosticata: ${q10_patologia || 'nessuna'}
             content: `Sei un nutrizionista e coach sportivo. Hai davanti i seguenti dati dell’utente:
 ${userInfo}
 
-Sulla base di *ciascuna* informazione, genera **solo** tre sezioni:
+Sulla base di *ciascuna* informazione, genera **solo** quattro sezioni:
 [ALIMENTAZIONE]  
 • 2–3 cibi o mini-pasti concreti con porzioni (es. “150 g petto di pollo + 200 g broccoli”).  
 • Rapida modifica dei macronutrienti se serve (es. “aumenta proteine a 2 g/kg”).
@@ -413,7 +413,7 @@ Formato di uscita **esatto** (includi le etichette):
     const text = gptReply.data.choices[0].message.content;
 
     // 4) estrazione via regex
-    const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
+    const mA = text.match(/\[ALIMENTAZIONE\]\s*([\s\S]*?)\s*(?=\[INTEGRAZIONE\])/i);
     const mI = text.match(/\[INTEGRAZIONE\]\s*([\s\S]*?)\s*(?=\[STILE DI VITA\])/i);
     const mS = text.match(/\[STILE DI VITA\]\s*([\s\S]*?)\s*(?=\[ALLENAMENTO\])/i);
     const mL = text.match(/\[ALLENAMENTO\]\s*([\s\S]*)/i);
