@@ -207,7 +207,7 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
 📌 Questo è il consiglio che hai dato prima: ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
 
 📌 Alla fine, se serve, suggerisci di:
-> "Contattare il nostro team al +39 0422 1833793 oppure su info@vitaedna.com"
+> "Contattare il nostro team al +39 0422 1833793, sul sito: https://www.vitaedna.com/ oppure per email a: info@vitaedna.com"
 
 💡 Esempi di domande che potresti ricevere:
 - "Cosa contiene il test sport?"
@@ -242,7 +242,7 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
 - Il cliente può accedere alla propria area su:  
   🔗 https://www.vitaedna.com/my-account/
 
-- Per ulteriori dubbi, indicare email **info@vitaedna.com** o telefono **0422 1833793**
+- Per ulteriori dubbi, indicare email **info@vitaedna.com**, sito internet **https://www.vitaedna.com/** e telefono **0422 1833793**
 
 - Tutti i dati sono **protetti secondo GDPR** e non condivisi con terze parti.
 
