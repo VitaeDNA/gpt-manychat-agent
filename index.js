@@ -361,9 +361,13 @@ Sulla base di *ciascuna* informazione, genera **solo** quattro sezioni:
 [ALIMENTAZIONE]  
 • 2–3 cibi o mini-pasti concreti con porzioni (es. “150 g petto di pollo + 200 g broccoli”).  
 • Rapida modifica dei macronutrienti se serve (es. “aumenta proteine a 2 g/kg”).
+• Suggerisci anche cibi proteici specifici come carne, pesce o pollo.
+• Non consigliare MAI il latte.
 
 [INTEGRAZIONE]  
 • 2–3 integratori o nutrienti specifici (dosaggi, tempi di assunzione) adatti al profilo e all’obiettivo.
+• Gli integratori o nutrienti che consigli devono essere estremamente specifici, come ad esempio: astaxantina, vitamina c liposomiale, glutatione liposomiale, acido alfa lipoico, Zinco, omega 3.
+• Gli integratori o nutrienti che consigli devono essere innovativi e per lo piú poco conosciuti.
 
 [STILE DI VITA]  
 • 2–3 azioni quotidiane pratiche (es. sonno, idratazione, recupero, gestione stress).
