@@ -458,11 +458,10 @@ ${section.cta || ''}
     const chunks = splitMessage(fullAdvice);
 
     // 8) prepara il payload
-    const TOTAL = 7;
     const responsePayload = {};
-    for (let i = 0; i < TOTAL; i++) {
-    responsePayload[`response_${i}`] = chunks[i] || "";
-    }
+chunks.forEach((chunk, i) => {
+  responsePayload[`response_${i}`] = chunk;
+});
 
     // 9) salva in history
     const userHistory = (await loadHistory(userId)).messages || [];
