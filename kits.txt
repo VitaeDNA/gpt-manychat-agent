@@ -1,0 +1,161 @@
+=== VitaeDNA Kit Salute ===
+Slug: vitae-kit-salute
+Category: Salute
+Price: €259,00
+
+Description:
+Il Kit test DNA Salute è un innovativo test genetico che analizza i tuoi geni e fornisce informazioni per migliorare e preservare la tua salute generale e raggiungere il peso forma.
+
+Cosa offre:
+Le intolleranze alimentari
+L’elenco dei cibi più in linea con il tuo codice genetico (oltre 250 alimenti)
+I substrati energetici più adatti al tuo metabolismo (grassi, carboidrati e proteine)
+Quale sport e tipo di allenamento è più adatto a te, per migliorare la forma fisica
+La predisposizione genetica a patologie cardiovascolari, diabete, colesterolo HDL e ipertensione arteriosa
+Molte altre informazioni per la tua salute
+
+Benefici:
+- Riconoscere intolleranze alimentari
+- Comprendere assimilazione e metabolismo dei cibi
+- Individuare fabbisogno personale di vitamine, minerali e antiossidanti
+- Scegliere il tipo di allenamento ideale
+- Predisposizione genetica a patologie (ipertensione, diabete, obesità)
+
+Aree analizzate (14):
+1. Intolleranza al lattosio
+2. Sensibilità genetica al glutine
+3. Sensibilità all’istamina
+4. Sensibilità alla caffeina
+5. Profilo micronutrienti
+6. Metabolismo della vitamina D
+7. Mappa alimentare (250 alimenti)
+8. Sensibilità all’alcol
+9. Metabolismo e profilo lipidico
+10. Sensibilità al sale
+11. Rischio cardiovascolare
+12. Risposta infiammatoria
+13. Performance sportiva
+14. Capacità antiossidante
+
+=== VitaeDNA Kit Dimagrimento ===
+Slug: vitae-kit-dimagrimento
+Category: Dimagrimento
+Price: €319,00
+
+Description:
+Oltre alle analisi del Kit Salute, include una dieta personalizzata in base al tuo patrimonio genetico e preferenze alimentari (onnivoro, vegetariano, vegano).
+
+Cosa offre:
+Dimagrimento:
+Le intolleranze alimentari
+L’elenco dei cibi più in linea con il tuo codice genetico (oltre 250 alimenti)
+I substrati energetici più adatti al tuo metabolismo (grassi, carboidrati e proteine)
+Quale sport e tipo di allenamento è più adatto a te, per migliorare la forma fisica
+La predisposizione genetica a patologie cardiovascolari, diabete, colesterolo HDL e ipertensione arteriosa
+Molte altre informazioni per la tua salute.
+Tutte le informazioni del Kit Salute
++
+Dieta altamente personalizzata:
+Costruita dai nostri esperti dietologi sulla base dei risultati genetici del test
+Rispetta le precise richieste del tuo DNA
+Con consigli integrativi altamente funzionali
+
+Benefici:
+- Riconoscere intolleranze alimentari
+- Comprendere assimilazione e metabolismo dei cibi
+- Individuare fabbisogno personale di vitamine, minerali e antiossidanti
+- Scegliere il tipo di allenamento ideale
+- Predisposizione genetica a patologie (ipertensione, diabete, obesità)
+- Programma di allenamento personalizzato
+
+Aree analizzate (14 + Wellness Plan):
+1-14: (stesse del Kit Salute)
+15. Piano alimentare personalizzato
+16. Programma di allenamento personalizzato
+
+=== VitaeDNA Kit Sport ===
+Slug: vitae-kit-sport
+Category: Sport
+Price: €359,00
+
+Description:
+Test per sportivi che unisce analisi genetiche del Kit Salute a dieta e programma di allenamento modellato da trainer in base ai risultati genetici.
+
+Cosa offre:
+Sport:
+Le intolleranze alimentari
+L’elenco dei cibi più in linea con il tuo codice genetico (oltre 250 alimenti)
+I substrati energetici più adatti al tuo metabolismo (grassi, carboidrati e proteine)
+Quale sport e tipo di allenamento è più adatto a te, per migliorare la forma fisica
+La predisposizione genetica a patologie cardiovascolari, diabete, colesterolo HDL e ipertensione arteriosa
+Molte altre informazioni per la tua salute
+Dieta altamente personalizzata:
+Costruita dai nostri esperti dietologi sulla base dei risultati genetici del test
+Rispetta le precise richieste del tuo DNA
+Con consigli integrativi altamente funzionali
++
+Programma di allenamento specifico:
+Con consigli integrativi altamente funzionali
+Costruito sui tuoi risultati genetici dai nostri trainer esperti
+Ti consentirà di ottenere il massimo dal tuo fisico
+Ti permetterà di ridurre gli infortuni
+
+Benefici:
+- Riconoscere intolleranze alimentari
+- Comprendere assimilazione e metabolismo dei cibi
+- Individuare fabbisogno personale di vitamine, minerali e antiossidanti
+- Scegliere il tipo di allenamento ideale
+- Predisposizione genetica a patologie (ipertensione, diabete, obesità)
+- Programma di allenamento personalizzato
+- Ottimizzazione performance e riduzione infortuni
+
+Aree analizzate (14 + Sport Performance):
+1-14: (stesse del Kit Salute)
+15. Piano alimentare personalizzato
+16. Programma di allenamento personalizzato
+
+=== VitaeDNA Kit Fitness ===
+Slug: vitae-kit-fitness
+Category: Fitness
+Price: €305,00
+
+Description:
+Il kit più completo: oltre alle aree del Kit Salute, analizza invecchiamento cutaneo, livelli di estradiolo e testosterone, predisposizione a colon irritabile e metabolismo energetico.
+
+Cosa offre:
+Fitness test genetico più completo offerto da vitaeDNA report 57 pagine. 
+Intolleranze alimentari
+Predisposizione al colon irritabile
+L’elenco dei cibi più in linea con il tuo codice genetico (oltre 250 alimenti)
+Substrati energetici più adatti al tuo metabolismo (grassi, carboidrati e proteine)
+Il fabbisogno di vitamine e sali minerali
+Predisposizione genetica a patologie cardiovascolari, diabete, colesterolo HDL e ipertensione arteriosa
+Invecchiamento cutaneo
+Sport e tipo di allenamento più adatti a migliorare la tua forma fisica; se hai geni di forza di endurance, tempi di recupero, utilizzo del grasso sottocutaneo e VO2max
+Predisposizione agli infortuni, osteoporosi e tendinopatia
+Predisposizione a livelli di testosterone ed estradiolo
+Molte altre informazioni per la tua salute
+È possibile inoltre richiedere anche:
+La tua dieta personalizzata su base genetica
+La tua scheda di allenamento tarata sul tuo DNA
+
+Benefici:
+- Riconoscere intolleranze alimentari
+- Comprendere assimilazione e metabolismo dei cibi
+- Predisposizione a sindrome del colon irritabile
+- Predisposizione a patologie (ipertensione, diabete, obesità)
+- Scegliere il tipo di allenamento ideale
+- Fabbsisogno personale di vitamine, minerali e antiossidanti
+- Predisposizione all’invecchiamento cutaneo e metabolismo melatonina
+- Predisposizione genetica a estradiolo e testosterone
+
+Aree analizzate (22):
+1-14: (stesse del Kit Salute)
+15. Invecchiamento cutaneo
+16. Metabolismo della melatonina
+17. Livelli di estradiolo
+18. Livelli di testosterone
+19. Sindrome del colon irritabile
+20. Metabolismo energetico (UCP)
+21. Tendinopatia
+22. VO2Max
