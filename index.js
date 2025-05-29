@@ -222,12 +222,17 @@ for (const [label, slug] of Object.entries(kitMap)) {
 // Qui puoi estrarre solo le parti che ti interessano (ad es. le domande/risposte più comuni
 // e le caratteristiche del kit) oppure passarle complete.
 // 1) Rimuovi i tag HTML e trimma
-const rawFaqText = faqPage.data.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-const rawKitText = kitPage.data.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const rawFaqText = faqPage.data
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim()
+  .slice(0, 2000) + '…';
 
-// 2) Limita a max 2000 caratteri ciascuno
-const faqText = rawFaqText.slice(0, 2000) + '...';
-const kitText = rawKitText.slice(0, 2000) + '...';   
+const rawKitText = kitPage.data
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim()
+  .slice(0, 2000) + '…';
 
 const systemPrompt = `
 Sei Marco, assistente genetico AI di VitaeDNA.
