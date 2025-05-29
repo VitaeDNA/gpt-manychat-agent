@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
+const FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
 
 const app = express();
 app.use(bodyParser.json());
@@ -214,20 +215,13 @@ for (const [label, slug] of Object.entries(kitMap)) {
 }
 
 // --- FINE SNIPPET ---
-    const [faqPage, kitPage] = await Promise.all([
-  axios.get('https://www.vitaedna.com/contatti-e-faq/'),
+    const [ kitPage] = await Promise.all([
   axios.get(`https://www.vitaedna.com/i-nostri-test/vitaedna-kit-${lastKitSlug}/`)
 ]);
 
 // Qui puoi estrarre solo le parti che ti interessano (ad es. le domande/risposte più comuni
 // e le caratteristiche del kit) oppure passarle complete.
 // 1) Rimuovi i tag HTML e trimma
-const rawFaqText = faqPage.data
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/\s+/g, ' ')
-  .trim()
-  .slice(0, 2000) + '…';
-
 const rawKitText = kitPage.data
   .replace(/<[^>]+>/g, ' ')
   .replace(/\s+/g, ' ')
@@ -237,16 +231,12 @@ const rawKitText = kitPage.data
 const systemPrompt = `
 Sei Marco, assistente genetico AI di VitaeDNA.
 
-**Usa SOLO queste estrazioni dal sito** (e **non** la tua memoria interna):
---- FAQ principali (max 2000 caratteri) ---
-${rawFaqText}
+**Usa SOLO queste informazioni**, che hai già caricato in memoria (non fare altre richieste HTTP) per rispondere alle domande:
+--- FAQ principali  ---
+${FAQ_TEXT}
 
 --- Contenuto del kit consigliato (max 2000 caratteri) ---
 ${rawKitText}
-
-Ora, quando l’utente ti chiede una domanda,  
-**rispondi soltanto** con informazioni che trovi in quelle pagine (citandole se serve).  
-Se una risposta non è presente in quei testi, allora: “Per questa domanda molto specifica, ti suggerisco di contattare il nostro team…”.
 
 ‼️ Non consigliare un test diverso.
 ✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
