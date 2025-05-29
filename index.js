@@ -7,6 +7,7 @@ const path = require('path');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 const FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
+const KITS_TEXT = fs.readFileSync(path.join(__dirname, 'kits.txt'), 'utf-8').trim();
 
 const app = express();
 app.use(bodyParser.json());
@@ -193,40 +194,6 @@ app.post('/manychat', async (req, res) => {
 
     const userHistory = (await loadHistory(userId)).messages || [];
     const lastAssistantReply = [...userHistory].reverse().find(m => m.role === 'assistant');
-// --- INIZIO SNIPPET DA AGGIUNGERE ---
-
-// mappa le etichette che appaiono nell’ultima risposta colloquialmente al loro slug URL
-const kitMap = {
-  'Kit Salute': 'salute',
-  'Kit Dimagrimento': 'dimagrimento',
-  'Kit Fitness': 'fitness',
-  'Kit Sport': 'sport'
-};
-
-// imposta uno slug di default
-let lastKitSlug = 'salute';
-
-// trova quale chiave di kitMap compare nell’ultimo consiglio
-for (const [label, slug] of Object.entries(kitMap)) {
-  if (lastAssistantReply?.content?.includes(label)) {
-    lastKitSlug = slug;
-    break;
-  }
-}
-
-// --- FINE SNIPPET ---
-    const [ kitPage] = await Promise.all([
-  axios.get(`https://www.vitaedna.com/i-nostri-test/vitaedna-kit-${lastKitSlug}/`)
-]);
-
-// Qui puoi estrarre solo le parti che ti interessano (ad es. le domande/risposte più comuni
-// e le caratteristiche del kit) oppure passarle complete.
-// 1) Rimuovi i tag HTML e trimma
-const rawKitText = kitPage.data
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/\s+/g, ' ')
-  .trim()
-  .slice(0, 2000) + '…';
 
 const systemPrompt = `
 Sei Marco, assistente genetico AI di VitaeDNA.
@@ -235,8 +202,8 @@ Sei Marco, assistente genetico AI di VitaeDNA.
 --- FAQ principali  ---
 ${FAQ_TEXT}
 
---- Contenuto del kit consigliato (max 2000 caratteri) ---
-${rawKitText}
+--- DESCRIZIONE KIT DISPONIBILI ---
+${KITS_TEXT}
 
 ‼️ Non consigliare un test diverso.
 ✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
