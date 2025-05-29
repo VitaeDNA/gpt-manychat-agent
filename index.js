@@ -192,7 +192,28 @@ app.post('/manychat', async (req, res) => {
 
     const userHistory = (await loadHistory(userId)).messages || [];
     const lastAssistantReply = [...userHistory].reverse().find(m => m.role === 'assistant');
+// --- INIZIO SNIPPET DA AGGIUNGERE ---
 
+// mappa le etichette che appaiono nell’ultima risposta colloquialmente al loro slug URL
+const kitMap = {
+  'Kit Salute': 'salute',
+  'Kit Dimagrimento': 'dimagrimento',
+  'Kit Fitness': 'fitness',
+  'Kit Sport': 'sport'
+};
+
+// imposta uno slug di default
+let lastKitSlug = 'salute';
+
+// trova quale chiave di kitMap compare nell’ultimo consiglio
+for (const [label, slug] of Object.entries(kitMap)) {
+  if (lastAssistantReply?.content?.includes(label)) {
+    lastKitSlug = slug;
+    break;
+  }
+}
+
+// --- FINE SNIPPET ---
     const [faqPage, kitPage] = await Promise.all([
   axios.get('https://www.vitaedna.com/contatti-e-faq/'),
   axios.get(`https://www.vitaedna.com/i-nostri-test/vitaedna-kit-${lastKitSlug}/`)
