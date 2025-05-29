@@ -244,7 +244,7 @@ Hai già consigliato un test genetico all'utente, quindi ora il tuo compito è:
 
 - Per ulteriori dubbi, indicare email **info@vitaedna.com**, sito internet **https://www.vitaedna.com/** e telefono **0422 1833793**
 
-- Tutti i dati sono **protetti secondo GDPR** e non condivisi con terze parti.
+- Tutti i dati sono **protetti secondo GDPR** e non condivisi con terze parti. Link per la privacy policy: **https://www.vitaedna.com/privacy/**
 
     Stile: professionale, rassicurante, mai aggressivo.
     `;
