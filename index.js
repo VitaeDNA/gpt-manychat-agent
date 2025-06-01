@@ -309,7 +309,7 @@ app.post('/vitdna-quiz', async (req, res) => {
     const {
       user_id: userId,
       nome, eta_utente, sesso, descrizione_fisico, obiettivo,
-      q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia
+      q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia, numero
     } = req.body;
 
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
@@ -324,6 +324,7 @@ Macronutrienti medi: ${q7_macronutrienti}
 Ore di allenamento/sett.: ${q8_allenamento}
 Farmaci/Integratori: ${q9_medicine || 'nessuno'}
 Patologia diagnosticata: ${q10_patologia || 'nessuna'}
+numero: ${phone}
 `.trim();
 
     // 2) definiamo chatMessages per OpenAI
