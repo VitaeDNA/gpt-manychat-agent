@@ -324,7 +324,7 @@ Macronutrienti medi: ${q7_macronutrienti}
 Ore di allenamento/sett.: ${q8_allenamento}
 Farmaci/Integratori: ${q9_medicine || 'nessuno'}
 Patologia diagnosticata: ${q10_patologia || 'nessuna'}
-numero: ${phone}
+numero telefono: ${numero}
 `.trim();
 
     // 2) definiamo chatMessages per OpenAI
