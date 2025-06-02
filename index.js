@@ -414,18 +414,18 @@ let allenamentoGPT  = stripCtaLines(mL[1]);
 
     // 6) costruzione del testo completo (inclusa la cta una sola volta)
     const fullAdvice = `
-- Alimentazione:
+**Alimentazione**:
 ${alimentazioneGPT}
 
 ${section.nutrition || ''}
 
-- Integrazione:
+**Integrazione**:
 ${integrazioneGPT}
 
-- Stile di vita:
+**Stile di vita**:
 ${stileGPT}
 
-- Allenamento:
+**Allenamento**:
 ${allenamentoGPT}
 
 ${section.training || ''}
