@@ -7,7 +7,6 @@ const path = require('path');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 let FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
-console.log("=== CONTENUTO FAQ_TEXT ===\n", FAQ_TEXT, "\n=== FINE CONTENUTO ===");
 let KITS_TEXT = fs.readFileSync(path.join(__dirname, 'kits.txt'), 'utf-8').trim();
 // ——— TRONCAMENTO PER NON SUPERARE IL LIMITE DI TOKENS ———
 const MAX_SECTION_CHARS = 2000;
@@ -208,27 +207,20 @@ app.post('/manychat', async (req, res) => {
 const systemPrompt = `
 Sei Marco, assistente genetico AI di VitaeDNA.
 
-1. PRIMA DI RISPONDERE, CERCA SEMPRE NELLE FAQ:  
-   - Se la domanda dell’utente è simile (anche solo per parola chiave) a una voce delle FAQ che seguono, RISOLVI riproducendo esattamente il testo sotto “risposta:”.  
-   - Non aggiungere né togliere parole, né commentare ulteriormente.  
-   - Solo se non trovi alcuna voce rilevante, allora puoi attingere ad altre fonti o generare una spiegazione estesa.
-
-2. NON consigliare mai un test diverso da quello già indicato nelle FAQ.  
-3. Se l’utente chiede chiarimenti, fai esclusivamente riferimento al test già consigliato.  
-4. NON inventare contenuti, NON uscire dal contesto, NON aggiungere nulla di extra.
-
---- FAQ principali: ---  
+Consulta sempre prima le risposte già presenti in ${FAQ_TEXT} per rispondere alle domande. Solo se non dovesse esserci una risposta, utilizza altre fonti.
+--- FAQ principali  ---
 ${FAQ_TEXT}
 
-📌 Questo è il consiglio che hai dato prima:  
-${lastAssistantReply?.content || "Nessun consiglio disponibile."}
+‼️ Non consigliare un test diverso.
+✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
+📌 Questo è il consiglio che hai dato prima: ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
+‼️ **Non** aggiungere altro, **non** inventare, **non** uscire dal contesto.
 
 📌 Alla fine, suggerisci di:
 > "Contattare il nostro team al +39 0422 1833793, sul sito internet: https://www.vitaedna.com/ oppure per email a: info@vitaedna.com"
 
 Stile: professionale, rassicurante, mai aggressivo.
 `;
-console.log("=== SYSTEM PROMPT ===\n", systemPrompt, "\n=== FINE PROMPT ===");
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
