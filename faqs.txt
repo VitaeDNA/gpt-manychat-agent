@@ -12,18 +12,14 @@
 * Kit Dimagrimento: [https://www.vitaedna.com/prodotto/vitaedna-kit-dimagrimento/](https://www.vitaedna.com/prodotto/vitaedna-kit-dimagrimento/)
 * Kit Sport: [https://www.vitaedna.com/prodotto/vitaedna-kit-sport/](https://www.vitaedna.com/prodotto/vitaedna-kit-sport/)
 * Kit Fitness: [https://www.vitaedna.com/prodotto/vitaedna-kit-fitness/](https://www.vitaedna.com/prodotto/vitaedna-kit-fitness/)
-
 ---
-
 **domanda:** Cosa offre e quanto costa il Kit Salute?
 **risposta:**
-
 * **Prezzo:** €259
 
 * **Descrizione:** Test genetico base per migliorare e preservare la salute generale e raggiungere il peso forma.
 
 * **Analisi incluse:**
-
   1. Intolleranza al lattosio
   2. Sensibilità al glutine
   3. Sensibilità all’istamina
@@ -40,19 +36,15 @@
   14. Capacità antiossidante
 
 * **Benefici:**
-
   * Riconoscere intolleranze e ottimizzare l’alimentazione
   * Comprendere il proprio metabolismo e fabbisogno nutrizionale
   * Individuare sport e allenamento più efficaci
   * Valutare predisposizioni a patologie metaboliche e cardiovascolari
 
 *Link al prodotto:* [https://www.vitaedna.com/prodotto/vitaedna-kit-salute/](https://www.vitaedna.com/prodotto/vitaedna-kit-salute/)
-
 ---
-
 **domanda:** Cosa offre e quanto costa il Kit Dimagrimento?
 **risposta:**
-
 * **Prezzo:** €319
 
 * **Descrizione:** Include tutte le analisi del Kit Salute più un piano alimentare e di allenamento personalizzati, costruiti dai nostri esperti dietologi e trainer sulla base dei risultati genetici.
@@ -62,17 +54,13 @@
   16\. Programma di allenamento personalizzato
 
 * **Benefici aggiuntivi:**
-
   * Piano alimentare mirato per massimizzare la perdita di peso
   * Programma di allenamento studiato per ridurre infortuni e accelerare i risultati
 
 *Link al prodotto:* [https://www.vitaedna.com/prodotto/vitaedna-kit-dimagrimento/](https://www.vitaedna.com/prodotto/vitaedna-kit-dimagrimento/)
-
 ---
-
 **domanda:** Cosa offre e quanto costa il Kit Sport?
 **risposta:**
-
 * **Prezzo:** €359
 
 * **Descrizione:** Test dedicato a sportivi, include le analisi del Kit Salute con aggiunta di un piano alimentare e di allenamento elaborati da trainer esperti in base al profilo genetico.
@@ -82,17 +70,13 @@
   16\. Programma di allenamento specifico per ottimizzare forza, resistenza e recupero
 
 * **Benefici aggiuntivi:**
-
   * Ottimizzazione delle performance fisiche (forza esplosiva, resistenza aerobica, recupero)
   * Riduzione del rischio di infortuni muscolari e tendinei grazie a indicazioni mirate
 
 *Link al prodotto:* [https://www.vitaedna.com/prodotto/vitaedna-kit-sport/](https://www.vitaedna.com/prodotto/vitaedna-kit-sport/)
-
 ---
-
 **domanda:** Cosa offre e quanto costa il Kit Fitness?
 **risposta:**
-
 * **Prezzo:** €305
 
 * **Descrizione:** Il più completo: unisce le aree del Kit Salute a ulteriori indicatori su invecchiamento cutaneo, stato ormonale e composizione corporea, senza fornire piani prestabiliti.
@@ -108,20 +92,14 @@
   22\. Composizione corporea (massa magra/grassa)
 
 * **Benefici aggiuntivi:**
-
   * Comprendere l’effetto del DNA su invecchiamento cutaneo e stato ormonale
   * Identificare predisposizioni a infiammazioni croniche e problemi osteoarticolari
   * Ricevere raccomandazioni personalizzate per integrazione e allenamento mirate al benessere a lungo termine
-
 *Link al prodotto:* [https://www.vitaedna.com/prodotto/vitaedna-kit-fitness/](https://www.vitaedna.com/prodotto/vitaedna-kit-fitness/)
-
 ---
-
 **domanda:** Cosa ricevo dopo aver completato uno dei kit?
 **risposta:**
-
 * **Report PDF dettagliato** (oltre 57 pagine) con:
-
   * Spiegazione per ogni area analizzata
   * Interpretazione dei risultati genetici
   * Consigli pratici su alimentazione, integrazione e allenamento
@@ -129,467 +107,284 @@
 * **Report digitale** multimediale nell’area personale, con video e link a risorse aggiuntive
 * **Possibilità di consulenza specialistica** contattando [info@vitaedna.com](mailto:info@vitaedna.com) o chiamando +39 0422 1833793
 * **Opzione di richiedere file di sequenziamento crudo** via PEC con accordo di riservatezza
-
 *Link alla sezione “Cosa riceverai”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Quali ulteriori test specifici, oltre ai quattro kit principali, sono disponibili?
 **risposta:**
-
 * **Test Epigenetico:** analizza le modificazioni chimiche del DNA (metilazione e alterazioni istoniche) per capire l’impatto di fattori ambientali e stile di vita sui tuoi geni. Utile per monitorare interventi nutrizionali e cambiamenti di routine.
   *Link al Test Epigenetico:* [https://www.vitaedna.com/prodotto/test-epigenetico/](https://www.vitaedna.com/prodotto/test-epigenetico/)
 * **DAO Test (Intolleranza all’istamina):** misura l’attività dell’enzima DAO nel sangue e, abbinato all’analisi genetica dei polimorfismi DAO, aiuta a diagnosticare intolleranza all’istamina.
   *Link al DAO Test:* [https://www.vitaedna.com/prodotto/dao-test/](https://www.vitaedna.com/prodotto/dao-test/)
 * **Test Ematico Intolleranze Alimentari (Breath Test):** analizza IgG specifiche verso vari alimenti per identificare intolleranze acquisite, complemento al dato genetico.
   *Link al Test Ematico Intolleranze:* [https://www.vitaedna.com/prodotto/test-ematico-intolleranze/](https://www.vitaedna.com/prodotto/test-ematico-intolleranze/)
-
 ---
-
 **domanda:** Qual è la differenza tra test genetico e test epigenetico?
 **risposta:**
-
 * Il **test genetico** valuta varianti ereditarie (polimorfismi) costanti per tutta la vita, indicando predisposizioni a lungo termine (metabolismo, patologie, performance).
 * Il **test epigenetico** misura modificazioni chimiche reversibili (metilazione, istoni) che riflettono l’interazione tra geni e fattori ambientali nel breve termine (dieta, stress).
-
 Insieme, forniscono un quadro completo: ciò che “sei” (DNA) e come “stai” (epigenetica).
-
 *Link al Test Epigenetico:* [https://www.vitaedna.com/prodotto/test-epigenetico/](https://www.vitaedna.com/prodotto/test-epigenetico/)
-
 ---
-
 **domanda:** In che modo i risultati dei test vengono aggiornati con le nuove scoperte scientifiche?
 **risposta:** VitaeDNA e il laboratorio partner BMR Genomics rivedono periodicamente i pannelli genetici, integrando nuove varianti peer-reviewed. I report possono quindi includere aggiornamenti bibliografici e nuove interpretazioni nelle aree già testate.
-
 *Link alla pagina “Il laboratorio”:* [https://www.vitaedna.com/il-laboratorio/](https://www.vitaedna.com/il-laboratorio/)
-
 ---
-
 **domanda:** Il tampono buccale garantisce la conservazione del campione?
 **risposta:** Sì: il tampone contiene sali di silicio che cristallizzano il DNA, mantenendolo integro fino a 6 mesi se conservato in luogo asciutto, al riparo da luce e calore.
-
-*Link a “Come funziona”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Come si esegue il prelievo con il tampone buccale?
 **risposta:** A bocca pulita, strofinare il tampone sulle guance per 10 volte per lato. Inserire poi il tampone nella provetta, sigillarla e prenotare il corriere dall’area personale.
-
 *Link a “Come funziona”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Quali sono i tempi di consegna dei risultati nei mesi di ferie?
 **risposta:**
-
 * **Standard:** circa 3 settimane dalla ricezione del tampone.
 * **Agosto:** 3–4 settimane (laboratorio chiuso per ferie a metà agosto; analisi riprendono in settembre).
 * **Dicembre–Gennaio:** 3–4 settimane (laboratorio chiuso tra fine dicembre e inizio gennaio; analisi riprendono nella seconda settimana di gennaio).
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Come si prenota il corriere per la restituzione del tampone?
 **risposta:**
-
 1. Accedere all’area personale su [www.vitaedna.com/my-account/](http://www.vitaedna.com/my-account/)
 2. Inserire il codice tampone (6 cifre) nella sezione “Corriere”
 3. Scegliere data e orario di ritiro, confermare
 4. Sigillare la busta e attendere il corriere
    È possibile anche richiedere la spedizione tramite Poste Italiane senza costi aggiuntivi.
-
 *Link a “Come funziona”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Cosa succede se il corriere smarrisce il campione?
 **risposta:** In caso di smarrimento o ritardo prolungato, VitaeDNA invia un nuovo kit per un secondo prelievo senza costi aggiuntivi e riprogramma il ritiro con il vettore selezionato.
-
 *Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Dove viene analizzato il mio campione?
 **risposta:** Il campione viene processato dal laboratorio BMR Genomics, partner certificato specializzato in servizi di analisi genetiche e sequenziamento, che utilizza strumentazione di ultima generazione (beadchip Illumina, software dedicati). Fornisce report chiari sia per professionisti sia per consumatori.
-
 *Link a “Il laboratorio”:* [https://www.vitaedna.com/il-laboratorio/](https://www.vitaedna.com/il-laboratorio/)
-
 ---
-
 **domanda:** Quali metodologie utilizza il laboratorio per l’analisi genetica?
 **risposta:** Il laboratorio impiega beadchip Illumina per analizzare migliaia di polimorfismi, supportato da piattaforme IT e software bioinformatici, selezionando varianti in base alle ultime scoperte di genomica e biologia molecolare.
-
 *Link a “Il laboratorio”:* [https://www.vitaedna.com/il-laboratorio/](https://www.vitaedna.com/il-laboratorio/)
-
 ---
-
 **domanda:** Posso richiedere i file di sequenziamento crudo?
 **risposta:** Sì, previa richiesta formale via PEC e firma di un accordo di riservatezza con VitaeDNA.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** I risultati del test DNA VitaeDNA sono confidenziali?
 **risposta:** Sì. I dati vengono crittografati e gestiti secondo GDPR, senza accesso ai dati personali durante l’analisi. Barre fisiche e informatiche proteggono la tua privacy.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
+*Link a “DNA e Privacy”:* [https://www.vitaedna.com/dna-privacy/](https://www.vitaedna.com/dna-privacy/)
 ---
-
 **domanda:** Come accedo all’area personale e come recupero la password?
 **risposta:** Collegati a [www.vitaedna.com/my-account/](http://www.vitaedna.com/my-account/) e utilizza “Recupera password” per ricevere un link via email con istruzioni per reimpostarla.
-
-*Link all’area personale:* [https://www.vitaedna.com/my-account/](https://www.vitaedna.com/my-account/)
-
 ---
-
 **domanda:** Ho problemi di registrazione, l’ordine o il pagamento non comparso: come risolvere?
 **risposta:** Verifica che ordine e pagamento risultino a sistema. Se non risultano, effettua bonifico bancario contattando il team VitaeDNA che inseriranno manualmente l’ordine.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Come associare correttamente il kit/ordine in caso di più tamponi?
 **risposta:**
-
 1. Accedi a [www.vitaedna.com/my-account/](http://www.vitaedna.com/my-account/) → “I miei ordini” → “Associa prodotti”
 2. Inserisci codice tampone e dati richiesti (nome, cognome, email univoca) per ciascun soggetto. Ogni utente avrà un’area personale separata.
-
 *Link all’area personale:* [https://www.vitaedna.com/my-account/](https://www.vitaedna.com/my-account/)
-
 ---
-
 **domanda:** Posso fare il test DNA VitaeDNA se sono a dieta?
 **risposta:** Sì. Eseguire il test durante un percorso nutrizionale è consigliato: ti aiuta a capire quali alimenti sono più indicati per te in base al tuo DNA, supportando le scelte dietetiche.
-
 *Link a “Obiettivo Salute”:* [https://www.vitaedna.com/obiettivo-salute/](https://www.vitaedna.com/obiettivo-salute/)
-
 ---
-
 **domanda:** Come è possibile ricavare il DNA dalla saliva?
 **risposta:** La saliva contiene cellule epiteliali ricche di DNA. Il tampone buccale preleva queste cellule in modo non invasivo, strofinandolo sulle guance per raccogliere il campione genetico.
-
 *Link a “Come funziona”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Che differenza c’è tra test genetico e test Ematico Intolleranze Alimentari (breath test)?
 **risposta:**
-
 * Il **test genetico** valuta polimorfismi ereditari (costanti per tutta la vita), offrendoti informazioni predittive su metabolismo, salute e performance.
 * Il **breath test** (test ematico intolleranze) rileva IgG specifiche verso alimenti, misurando intolleranze acquisite che possono variare nel tempo.
-
 *Link al Test Ematico Intolleranze:* [https://www.vitaedna.com/prodotto/test-ematico-intolleranze/](https://www.vitaedna.com/prodotto/test-ematico-intolleranze/)
-
 ---
-
 **domanda:** Posso richiedere una consulenza con uno specialista per interpretare i risultati?
 **risposta:** Sì. Contatta il team di esperti via email ([info@vitaedna.com](mailto:info@vitaedna.com)) o telefonicamente (+39 0422 1833793) per fissare una consulenza.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** I test VitaeDNA sono adatti ai bambini?
 **risposta:** Sì, consigliato dai 5 anni in su, poiché fornisce indicazioni predittive per prevenzione e stile di vita adeguato. Non è tarato sui neonati.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Posso pagare il kit in contrassegno o a rate?
 **risposta:**
-
 * **Contrassegno:** non disponibile.
 * **Rateizzazione:** possibile solo via PayPal, se l’opzione è offerta al momento dell’acquisto.
 
 *Link all’e-commerce:* [https://www.vitaedna.com/prodotto/vitaedna-kit-salute/](https://www.vitaedna.com/prodotto/vitaedna-kit-salute/) (scegli il tuo kit per visualizzare opzioni di pagamento)
-
 ---
-
 **domanda:** Il test genetico VitaeDNA è detraibile?
 **risposta:** No, al momento non è detraibile fiscalmente.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Quali differenze tra Kit Salute, Kit Fitness e Kit Sport?
 **risposta:**
-
 * **Kit Salute:** analisi genetica base (intolleranze, metabolismo, rischio patologie, performance).
 * **Kit Fitness:** include tutte le aree del Kit Salute + indicatori su invecchiamento cutaneo, ormoni, colon irritabile, massa magra/grassa, VO₂ max stimato.
 * **Kit Sport:** include aree del Kit Salute + dieta e allenamento personalizzati per massimizzare performance sportive e ridurre infortuni, senza le analisi avanzate di Fitness.
 
 *Link comparativo:* [https://www.vitaedna.com/obiettivo-salute/](https://www.vitaedna.com/obiettivo-salute/)
-
 ---
-
 **domanda:** Come rinnovo la dieta dopo averla acquistata?
 **risposta:**
-
 1. Accedi all’area personale → “I miei risultati” → “Diete”
 2. Aggiorna la scheda anamnesi (nuovi obiettivi e dati clinici)
 3. Paga €65 con causale “Rinnovo dieta Nome Cognome” a IBAN Lifedna
    La nuova dieta viene rilasciata entro 8 giorni lavorativi dal pagamento.
-
 *Link a “Cosa riceverai”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Posso rinnovare la scheda allenamento?
 **risposta:** Al momento VitaeDNA non offre il servizio di rinnovo/aggiornamento della scheda allenamento.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Il test genetico è influenzato da farmaci o sostanze esterne?
 **risposta:** No. Basandosi su varianti genetiche (polimorfismi), il risultato rimane inalterato. È importante però eseguire il prelievo a stomaco vuoto, senza fumare e lavarsi i denti prima.
-
 *Link a “Istruzioni e tutorial”:* [https://www.vitaedna.com/istruzioni-e-tutorial/](https://www.vitaedna.com/istruzioni-e-tutorial/)
-
 ---
-
 **domanda:** Qual è la privacy policy sui dati genetici?
 **risposta:** I dati genetici sono tutelati secondo GDPR, non ceduti a terzi e accessibili solo dal cliente tramite credenziali personali in un database protetto.
-
 *Link a “DNA & Privacy”:* [https://www.vitaedna.com/dna-privacy/](https://www.vitaedna.com/dna-privacy/)
-
 ---
-
 **domanda:** Come richiedo una fattura o correggo il codice fiscale errato?
 **risposta:**
-
 * **Richiesta fattura:** viene inviata da Team VitaeDNA come allegato PDF.
 * **Codice fiscale errato:** contatta VitaeDNA via email/telefono per comunicare il CF corretto; verrà emessa fattura corretta.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Posso collaborare come fornitore o ambassador VitaeDNA?
 **risposta:** Al momento non ci sono condizioni per nuove collaborazioni; i tuoi contatti verranno archiviati per eventuali progetti futuri.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
 ---
-
 **domanda:** Dove posso trovare rivenditori ufficiali nella mia zona?
 **risposta:** Invia la tua provincia tramite modulo o email e VitaeDNA ti comunicherà i punti vendita autorizzati.
-
-*Link a “Contatti e FAQ”:* [https://www.vitaedna.com/contatti-e-faq/](https://www.vitaedna.com/contatti-e-faq/)
-
-
+---
 **domanda:** I risultati del test del DNA VitaeDNA sono confidenziali?
 **risposta:** I risultati sono confidenziali al 100 %. Una volta registrato il test, i dati vengono convertiti in un codice alfanumerico crittografato. Né il laboratorio né durante l’analisi si ha accesso ai dati personali dell’utente. VitaeDNA segue rigorosamente il GDPR e utilizza barriere fisiche e informatiche per proteggere la privacy. ([VitaeDNA][1])
-
 ---
-
 **domanda:** Come posso acquistare il test DNA VitaeDNA?
 **risposta:** Puoi acquistare il kit direttamente online nella sezione SHOP del sito [www.vitaedna.com](http://www.vitaedna.com), oppure rivolgerti a farmacie o palestre autorizzate che vendono VitaeDNA. ([VitaeDNA][1])
-
 ---
-
 **domanda:** Il test DNA VitaeDNA è sicuro?
 **risposta:** Sì. I test VitaeDNA non comportano rischi, sono pratici, veloci, non invasivi e completi nell’analisi. ([VitaeDNA][1])
-
 ---
-
 **domanda:** Il test DNA VitaeDNA è valido?
 **risposta:** Sì. Evidenze scientifiche supportano l’uso dell’analisi del DNA a scopo predittivo e conoscitivo: è uno strumento innovativo a supporto della medicina di precisione in ambito salute, alimentazione e prevenzione. ([VitaeDNA][1])
-
 ---
-
 **domanda:** Cos’è il kit VitaeDNA e come funziona il tampone buccale?
 **risposta:** Il kit è un dispositivo medico CE per analisi genetica tramite tampone buccale autoessiccante. Si esegue a bocca pulita strofinando il tampone sulle guance (10 volte per lato), poi si inserisce nella provetta, la si sigilla e la si invia con corriere.
-
 ---
-
 **domanda:** Il tampone garantisce la conservazione del campione?
 **risposta:** Sì: contiene sali di silicio che cristallizzano il DNA, mantenendolo integro fino a 6 mesi in luogo asciutto, al riparo da sole e calore.
-
 ---
-
 **domanda:** Cosa contiene il kit e come ricevo i risultati?
 **risposta:** Il kit include: istruzioni, tampone buccale con codice, busta preaffrancata e supporto salva-tampone. I risultati si scaricano in PDF o si visualizzano online nell’area personale entro 3 settimane dalla ricezione del tampone, con interpretazioni e consigli strutturati.
-
 ---
-
 **domanda:** Come si ordina il kit e quali sono i tempi?
 **risposta:**
-
 1. Acquisto online su [www.vitaedna.com](http://www.vitaedna.com)
 2. Consegna in 2–3 giorni lavorativi
 3. Prelievo del campione e prenotazione del corriere dall’area personale
 4. Risultati in 3 settimane dalla ricezione del tampone
    Pagamenti accettati: PayPal, carta di credito/prepagata o bonifico bancario.
-
 ---
-
 **domanda:** Posso pagare in contrassegno o a rate?
 **risposta:** Non è disponibile il contrassegno. Il pagamento a rate è possibile solo via PayPal (opzione offerta al momento dell’acquisto).
-
 ---
-
 **domanda:** Il test genetico è detraibile?
 **risposta:** No, al momento non è detraibile.
-
 ---
-
 **domanda:** Quanto costa ciascun kit?
 **risposta:**
-
 * KIT SALUTE: 259 €
 * KIT DIMAGRIMENTO: 319 €
 * KIT SPORT: 359 €
 * KIT FITNESS: 305 €
-
 ---
-
 **domanda:** Quali differenze tra Kit Salute, Kit Fitness e Kit Sport?
 **risposta:**
-
 * **Kit Salute:** Analisi genetica base (alimentazione, metabolismo, sport).
 * **Kit Fitness:** Tutte le informazioni di “Salute” + aree aggiuntive (colon irritabile, invecchiamento cutaneo, VO₂ max, ecc.), ma senza dieta né programma allenamento.
 * **Kit Sport:** Contiene l’analisi di “Salute” + dieta personalizzata + programma allenamento, ma non tutte le aree del “Fitness”.
-
 ---
-
 **domanda:** Il kit è adatto anche agli sportivi?
 **risposta:** Sì: fornisce indicazioni genetiche per orientare l’allenamento, ottimizzare le performance e prevenire infortuni, basandosi su genotipi correlati a tratti metabolici e muscolari.
-
 ---
-
 **domanda:** Che metodologie vengono usate per analisi di allergie o intolleranze?
 **risposta:** Il test genetico valuta la predisposizione genetica (es. celiachia, intolleranza a lattosio, glutine e istamina) esaminando polimorfismi enzimatici. Non sostituisce test ematici per allergie diverse (che richiedono esami in ospedale).
-
 ---
-
 **domanda:** Quanto tempo rimane valido il prelievo e quali fattori influenzano il test?
 **risposta:** Il tampone conserva il DNA fino a 6 mesi. Il risultato genetico non cambia nel tempo e non è influenzato da fattori esterni; è importante eseguire il prelievo a stomaco vuoto e a bocca pulita.
-
 ---
-
 **domanda:** Che geni vengono analizzati?
 **risposta:** Vengono analizzati polimorfismi legati a nutrizione, metabolismo, intolleranze, performance sportiva e rischi di patologie correlate (es. salute cardiovascolare, invecchiamento cutaneo, ecc.). Ogni area è documentata con bibliografia scientifica.
-
 ---
-
 **domanda:** Come si prenota il corriere per la restituzione del tampone?
 **risposta:**
-
 1. Accedi all’area personale su [www.vitaedna.com](http://www.vitaedna.com) (“Il mio account”)
 2. Inserisci il codice tampone (6 cifre) nella sezione “Corriere”
 3. Scegli la data di ritiro e confermi
 4. Sigilla la busta e attendi il corriere
    In alternativa, si può richiedere la spedizione tramite Poste Italiane (senza costi aggiuntivi).
-
 ---
-
 **domanda:** Cosa succede se il corriere smarrisce il campione?
 **risposta:** In caso di smarrimento o ritardo prolungato, VitaeDNA invia un nuovo kit per un secondo prelievo senza costi aggiuntivi, riprogrammando il ritiro con il vettore indicato (es. DHL).
-
 ---
-
 **domanda:** Quali sono i tempi di consegna dei risultati nei mesi di ferie (agosto, dicembre)?
 **risposta:**
-
 * **Standard:** 3 settimane dalla ricezione del tampone.
 * **Agosto:** 3–4 settimane (laboratorio chiuso per ferie da metà agosto; analisi entro la prima settimana di settembre).
 * **Dicembre–Gennaio:** 3–4 settimane (chiusura laboratorio da fine dicembre a inizio gennaio; analisi entro la seconda settimana di gennaio).
-
 ---
-
 **domanda:** Come sono strutturati i referti e posso ricevere supporto per interpretarli?
 **risposta:** I referti si scaricano in PDF o versione multimediale. Per ogni area analizzata viene mostrato: descrizione area, genotipo rilevato, interpretazione, consigli pratici, approfondimento scientifico e bibliografia. In caso di dubbi, è possibile:
-
 1. Scrivere a [info@vitaedna.com](mailto:info@vitaedna.com)
 2. Chiamare il call center al +39 0422 1833793
-
 ---
-
 **domanda:** Posso richiedere una consulenza con uno specialista per i risultati?
 **risposta:** Sì, contattando via email o telefono il team di esperti.
-
 ---
-
 **domanda:** È possibile richiedere i file di sequenziamento?
 **risposta:** Sì, previa richiesta formale via PEC e firma di un accordo di riservatezza.
-
 ---
-
 **domanda:** Quali rivenditori ufficiali ci sono nella mia zona?
 **risposta:** I rivenditori vengono segnalati su richiesta fornendo la propria provincia. Se non indicata, VitaeDNA chiede di specificarla per verificare i distributori attivi.
-
 ---
-
 **domanda:** Come accedo all’area personale?
 **risposta:** Collegati a [www.vitaedna.com/my-account/](http://www.vitaedna.com/my-account/) e, in caso di smarrimento password, clicca “Recupera password” e segui le istruzioni.
-
 ---
-
 **domanda:** Ho problemi di registrazione, ordine o pagamento non comparso in sistema: come risolvere?
 **risposta:** Verifica che ordine e pagamento siano registrati. Se non risultano, procedi con bonifico bancario contattando il team (inserirà manualmente l’ordine a sistema).
-
 ---
-
 **domanda:** Come associare correttamente il kit/ordine in caso di più tamponi?
 **risposta:**
-
 1. Accedi a [www.vitaedna.com/my-account/](http://www.vitaedna.com/my-account/) → “I miei ordini” → “Associa prodotti”
 2. Inserisci codice tampone e dati richiesti.
    Per kit multipli, associa ciascun tampone a un soggetto (nome, cognome, email univoca). Ogni utente avrà un’area personale separata.
-
 ---
-
 **domanda:** Che differenza c’è tra test genetico e test intolleranze alimentari su sangue (breath test)?
 **risposta:** Il test genetico identifica la predisposizione enzimatica a metabolizzare nutrienti e rimane valido a vita. Il breath test valuta la funzionalità enzimatica attuale tramite sangue e può variare nel tempo.
-
 ---
-
 **domanda:** Il test è adatto ai bambini?
 **risposta:** Sì, consigliato dai 5 anni in su, perché fornisce indicazioni predittive per prevenzione e stile di vita adeguato, ma non è tarato su alimenti per neonati.
-
 ---
-
 **domanda:** Come posso richiedere la dieta personalizzata o la scheda allenamento ex post test?
 **risposta:**
-
 1. Accedi all’area personale → “I miei risultati” → “Diete”
 2. Aggiungi al carrello e paga (Dieta 65 €, Scheda allenamento 39 €)
 3. Compila la scheda anamnesi dal tuo profilo
    Tempi di consegna: 8–10 giorni lavorativi; validità media: 2–3 mesi.
 
 ---
-
 **domanda:** Come rinnovo la dieta?
 **risposta:**
-
 1. Aggiorna la scheda anamnesi in area personale (indicando nuovi obiettivi).
 2. Invia il pagamento di 65 € con causale “Rinnovo dieta Nome Cognome” a IBAN Lifedna.
    La nuova dieta viene rilasciata entro 8 giorni lavorativi dal pagamento.
 
 ---
-
 **domanda:** Posso rinnovare la scheda allenamento?
 **risposta:** Al momento non è offerto il servizio di rinnovo/aggiornamento della scheda allenamento.
-
 ---
-
 **domanda:** Il test genetico è influenzato da farmaci o altre sostanze?
 **risposta:** No. Il test si basa su polimorfismi genetici. È fondamentale seguire le istruzioni di prelievo (a digiuno, senza fumare, lavarsi i denti, ecc.), ma nessun farmaco altera il risultato.
 
 ---
-
 **domanda:** Qual è la privacy policy sui dati genetici?
 **risposta:** I dati genetici sono tutelati secondo GDPR, non ceduti a terzi e accessibili solo dal cliente con le proprie credenziali in un database protetto.
 
 ---
-
 **domanda:** Come richiedo una fattura o correggo il codice fiscale errato?
 **risposta:**
 
@@ -597,7 +392,6 @@ Insieme, forniscono un quadro completo: ciò che “sei” (DNA) e come “stai�
 * **Codice fiscale errato:** Team VitaeDNA contatterà l’utente per ottenere il CF corretto per la fatturazione.
 
 ---
-
 **domanda:** Posso collaborare come fornitore o ambassador?
 **risposta:** Al momento non ci sono condizioni per nuove collaborazioni. I contatti vengono salvati per eventuali progetti futuri.
 
@@ -605,12 +399,10 @@ Insieme, forniscono un quadro completo: ciò che “sei” (DNA) e come “stai�
 **risposta:** Sì. Eseguire il test durante un percorso nutrizionale è consigliato: ti aiuta a capire quali alimenti sono più indicati per te in base al tuo DNA, supportando le scelte dietetiche. ([vitaedna.com][1])
 
 ---
-
 **domanda:** Come è possibile ricavare il DNA dalla saliva?
 **risposta:** La saliva contiene cellule epiteliali morte ricche di DNA. Il tampone buccale preleva queste cellule in modo non invasivo: basta strofinarlo sulle guance per raccogliere il campione genetico. ([vitaedna.com][1])
 
 ---
-
 **domanda:** In quante fasi si articola il processo di test DNA VitaeDNA?
 **risposta:** Il percorso è composto da cinque step:
 
@@ -621,31 +413,25 @@ Insieme, forniscono un quadro completo: ciò che “sei” (DNA) e come “stai�
 5. **Ricevi** i risultati in PDF e versione digitale nell’area riservata in circa 3 settimane. ([vitaedna.com][2])
 
 ---
-
 **domanda:** Dove viene analizzato il mio campione?
 **risposta:** Il campione viene processato nei laboratori certificati BMR Genomics, che rispettano le norme comunitarie su privacy e tutela dei dati genetici. ([vitaedna.com][2])
 
 ---
-
 **domanda:** Quale struttura analizza i campioni genetici di VitaeDNA?
 **risposta:** Le analisi vengono eseguite dal laboratorio BMR Genomics, partner certificato e specializzato in servizi di analisi genetiche e sequenziamento. ([vitaedna.com][1])
 
 ---
-
 **domanda:** Quali tecnologie utilizza il laboratorio per le analisi genetiche?
 **risposta:** Il laboratorio impiega strumentazione di ultima generazione come il beadchip Illumina, insieme a piattaforme IT e software dedicati, per esaminare migliaia di polimorfismi genetici. ([vitaedna.com][1])
 
 ---
-
 **domanda:** Cosa comprende il pannello di analisi genetica utilizzato dal laboratorio?
 **risposta:** Il pannello di analisi è composto da migliaia di variazioni geniche (polimorfismi) selezionate in base agli sviluppi più recenti della ricerca genomica, genetica, biologia molecolare e bioinformatica. ([vitaedna.com][1])
 
 ---
-
 **domanda:** In che modo il laboratorio garantisce un report comprensibile?
 **risposta:** Viene fornito un report finale completo, con informazioni pratiche e di facile lettura sia per i professionisti del settore sia per il consumatore finale, grazie a tecnologie e processi che permettono un’interpretazione chiara dei dati genetici. ([vitaedna.com][1])
 
 ---
-
 **domanda:** Quali servizi aggiuntivi offre il laboratorio oltre all’analisi genetica?
 **risposta:** BMR Genomics fornisce servizi di sequenziamento e analisi personalizzate, continuamente aggiornati in base ai progressi della ricerca e alle nuove tecnologie nel campo della genetica, dell’informatica e della bioinformatica. ([vitaedna.com][1])
