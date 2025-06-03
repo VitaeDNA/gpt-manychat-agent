@@ -233,7 +233,7 @@ Stile: professionale, rassicurante, mai aggressivo.
   {
     model: "gpt-3.5-turbo",
     messages: gptMessages,  // Use the properly defined gptMessages array
-    temperature: 0.5
+    temperature: 0.7
   },
   {
     headers: {
