@@ -228,6 +228,7 @@ ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
 
 Stile: professionale, rassicurante, mai aggressivo.
 `;
+console.log("=== SYSTEM PROMPT ===\n", systemPrompt, "\n=== FINE PROMPT ===");
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
