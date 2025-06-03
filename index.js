@@ -7,6 +7,7 @@ const path = require('path');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 let FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
+console.log("=== CONTENUTO FAQ_TEXT ===\n", FAQ_TEXT, "\n=== FINE CONTENUTO ===");
 let KITS_TEXT = fs.readFileSync(path.join(__dirname, 'kits.txt'), 'utf-8').trim();
 // ——— TRONCAMENTO PER NON SUPERARE IL LIMITE DI TOKENS ———
 const MAX_SECTION_CHARS = 2000;
