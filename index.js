@@ -8,14 +8,6 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 let FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
 let KITS_TEXT = fs.readFileSync(path.join(__dirname, 'kits.txt'), 'utf-8').trim();
-// ——— TRONCAMENTO PER NON SUPERARE IL LIMITE DI TOKENS ———
-const MAX_SECTION_CHARS = 2000;
-if (FAQ_TEXT.length > MAX_SECTION_CHARS) {
-  FAQ_TEXT = FAQ_TEXT.slice(0, MAX_SECTION_CHARS) + '…';
-}
-if (KITS_TEXT.length > MAX_SECTION_CHARS) {
-  KITS_TEXT = KITS_TEXT.slice(0, MAX_SECTION_CHARS) + '…';
-}
 // ————————————————————————————————————————————————
 
 const app = express();
@@ -232,9 +224,6 @@ ${FAQ_TEXT}
 ‼️ Non consigliare un test diverso.
 ✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
 📌 Questo è il consiglio che hai dato prima: ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
-
-📌 Alla fine, suggerisci di:
-> "Contattare il nostro team al +39 0422 1833793, sul sito internet: https://www.vitaedna.com/ oppure per email a: info@vitaedna.com"
 
 Stile: professionale, rassicurante, mai aggressivo.
 `;
