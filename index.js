@@ -8,7 +8,7 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 let FAQ_TEXT = fs.readFileSync(path.join(__dirname, 'faqs.txt'), 'utf-8').trim();
 let KITS_TEXT = fs.readFileSync(path.join(__dirname, 'kits.txt'), 'utf-8').trim();
-const MAX_SECTION_CHARS = 6000;
+const MAX_SECTION_CHARS = 10000;
 if (FAQ_TEXT.length > MAX_SECTION_CHARS) {
   FAQ_TEXT = FAQ_TEXT.slice(0, MAX_SECTION_CHARS) + '\n[...domande addizionali rimosse per ragioni di spazio...]';
 }
