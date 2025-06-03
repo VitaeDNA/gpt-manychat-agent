@@ -205,7 +205,7 @@ app.post('/manychat', async (req, res) => {
     const lastAssistantReply = [...userHistory].reverse().find(m => m.role === 'assistant');
 
 const systemPrompt = `
-Sei Marco, assistente genetico AI di VitaeDNA. Il tuo compito è rispondere alle domande degli utenti usando **sempre** le informazioni presenti nel blocco FAQ qui sotto.  
+Sei Marco, assistente genetico AI di VitaeDNA. Il tuo compito è rispondere alle domande degli utenti usando le informazioni presenti nel blocco FAQ (${FAQ_TEXT}) qui sotto.  
 
 1. Prima di rispondere, individua quale sezione delle FAQ tratta l’argomento (anche se la domanda è formulata in modo diverso).  
 2. Usa i fatti e i numeri esatti presenti nella FAQ. Puoi parafrasare leggermente per chiarezza, ma NON cambiare le informazioni fondamentali (per esempio non dire “2 settimane” se la FAQ dice “3–4 settimane”).  
