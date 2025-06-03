@@ -207,7 +207,7 @@ app.post('/manychat', async (req, res) => {
 const systemPrompt = `
 Sei Marco, assistente genetico AI di VitaeDNA.
 
-Consulta sempre prima le risposte già presenti in ${FAQ_TEXT} per rispondere alle domande. Solo se non dovesse esserci una risposta, utilizza altre fonti.
+**Usa SOLO queste informazioni**, che hai già caricato in memoria (non fare altre richieste HTTP) per rispondere alle domande:
 --- FAQ principali  ---
 ${FAQ_TEXT}
 
@@ -233,7 +233,7 @@ Stile: professionale, rassicurante, mai aggressivo.
   {
     model: "gpt-3.5-turbo",
     messages: gptMessages,  // Use the properly defined gptMessages array
-    temperature: 0.7
+    temperature: 0.0
   },
   {
     headers: {
