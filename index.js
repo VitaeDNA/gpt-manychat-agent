@@ -322,15 +322,26 @@ app.post('/vitdna-quiz', async (req, res) => {
 
     const history = await loadHistory(userId);
 // Se esiste quizLockExpiresAt e non è scaduto, blocca:
-if (history.quizInEsecuzione && history.quizLockExpiresAt > new Date()) {
+const now = new Date();
+if (
+  history.quizInEsecuzione === true &&
+  history.quizLockExpiresAt &&
+  new Date(history.quizLockExpiresAt) > now
+) {
   console.log('⚠️ Quiz già in corso per user', userId, ', ignoro la seconda invocazione.');
   return res.status(200).json({});
 }
 await db.collection(collectionName).updateOne(
   { userId },
-  { $set: { quizInEsecuzione: false }, $unset: { quizLockExpiresAt: "" } }
+  {
+    $set: {
+      quizInEsecuzione: true,
+      quizLockExpiresAt: new Date(Date.now() + 10_000) // lock valido 10 secondi
+    }
+  },
+  { upsert: true }
 );
-
+    
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
     const userInfo = `
 Nome: ${nome}
@@ -479,7 +490,10 @@ for (let i = 0; i <= 5; i++) {
     // … logica che genera fullAdvice, chunks, salva in history, ecc. …
 await db.collection(collectionName).updateOne(
   { userId },
-  { $set: { quizInEsecuzione: false } }
+  {
+    $set:   { quizInEsecuzione: false },
+    $unset: { quizLockExpiresAt: "" }
+  }
 );
     // 10) restituisci la risposta
     return res.json(responsePayload);
@@ -490,7 +504,10 @@ await db.collection(collectionName).updateOne(
     if (req.body.user_id) {
       await db.collection(collectionName).updateOne(
         { userId: req.body.user_id },
-        { $set: { quizInEsecuzione: false } }
+        {
+          $set:   { quizInEsecuzione: false },
+          $unset: { quizLockExpiresAt: "" }
+        }
       );
     }
     return res.status(500).json({ message: 'Errore nella generazione della consulenza personalizzata.' });
