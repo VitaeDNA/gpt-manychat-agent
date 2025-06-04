@@ -292,35 +292,6 @@ app.post('/vitdna-quiz', async (req, res) => {
       nome, eta_utente, sesso, descrizione_fisico, obiettivo,
       q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia, numero
     } = req.body;
-
-    const now = new Date();
-// Provo a prendere il lock *solo se* non esiste un lock attivo (o se è già scaduto)
-const result = await db.collection(collectionName).findOneAndUpdate(
-  {
-    userId,
-    $or: [
-      { quizInEsecuzione: { $exists: false } },                // primo accesso
-      { quizInEsecuzione: false },                              // stato libero
-      { quizLockExpiresAt: { $lte: now } }                     // lock precedente scaduto
-    ]
-  },
-  {
-    // imposta nuovo lock valido 10 secondi da ora
-    $set: {
-      quizInEsecuzione: true,
-      quizLockExpiresAt: new Date(Date.now() + 10_000)
-    }
-  },
-  { returnDocument: 'after' }
-);
-
-if (!result.value) {
-  // se value è null, significa che non ho trovato nessun document
-  // con quizInEsecuzione:false o lock scaduto => c'è un lock ancora valido
-  console.log('⚠️ Quiz già in corso per user', userId, ', ignoro la seconda invocazione.');
-  return res.status(200).json({});
-}
-// se result.value non è null, ho prelevato il lock e posso continuare
     
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
     const userInfo = `
@@ -462,34 +433,17 @@ for (let i = 0; i <= 5; i++) {
       { role: 'assistant', content: fullAdvice }
     ]);
      // 9b) aggiorna il documento in MongoDB aggiungendo "numero" appena estratto
-     await db.collection(collectionName).updateOne(
-     { userId: userId },
-     { $set: { numero: numero } },
+      await db.collection(collectionName).updateOne(
+      { userId: userId },
+      { $set: { numero: numero } },
       { upsert: true }
- );
-    // … logica che genera fullAdvice, chunks, salva in history, ecc. …
-await db.collection(collectionName).updateOne(
-  { userId },
-  {
-    $set:   { quizInEsecuzione: false },
-    $unset: { quizLockExpiresAt: "" }
-  }
-);
+    );
+
     // 10) restituisci la risposta
     return res.json(responsePayload);
 
   } catch (err) {
     console.error('❌ Errore nella generazione personalizzata:', err.response?.data || err);
-    // In caso di errore, resetta il flag per non bloccare l’utente
-    if (req.body.user_id) {
-      await db.collection(collectionName).updateOne(
-        { userId: req.body.user_id },
-        {
-          $set:   { quizInEsecuzione: false },
-          $unset: { quizLockExpiresAt: "" }
-        }
-      );
-    }
     return res.status(500).json({ message: 'Errore nella generazione della consulenza personalizzata.' });
   }
 });
