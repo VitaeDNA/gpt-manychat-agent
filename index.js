@@ -432,12 +432,6 @@ for (let i = 0; i <= 5; i++) {
       { role: 'user', content: `[QUIZ COMPLETATO] Obiettivo: ${obiettivo}` },
       { role: 'assistant', content: fullAdvice }
     ]);
-     // 9b) aggiorna il documento in MongoDB aggiungendo "numero" appena estratto
-      await db.collection(collectionName).updateOne(
-      { userId: userId },
-      { $set: { numero: numero } },
-      { upsert: true }
-    );
 
     // 10) restituisci la risposta
     return res.json(responsePayload);
