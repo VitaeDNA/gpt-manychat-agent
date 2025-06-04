@@ -443,13 +443,13 @@ ${section.cta || ''}
     // 7) split in chunk da inviare a ManyChat
     const chunks = splitMessage(fullAdvice);
 
-    // 8) prepara il payload
-    const responsePayload = {};
-    chunks.forEach((chunk, i) => {
-    if (chunk && chunk.trim().length > 0) {
-    responsePayload[`response_${i}`] = chunk;
-  }
-  });
+// 8) prepara il payload includendo fino a response_5 (placeholder se necessario)
+const responsePayload = {};
+for (let i = 0; i <= 5; i++) {
+  responsePayload[`response_${i}`] = (chunks[i] && chunks[i].trim().length > 0)
+    ? chunks[i]
+    : " ";  // placeholder non‐vuoto
+}
 
     // 9) salva in history
     const userHistory = (await loadHistory(userId)).messages || [];
