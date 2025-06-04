@@ -320,6 +320,17 @@ app.post('/vitdna-quiz', async (req, res) => {
       q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia, numero
     } = req.body;
 
+    const history = await loadHistory(userId);
+if (history.quizInEsecuzione) {
+  console.log('⚠️ Quiz già in corso per user', userId, ', ignoro la seconda invocazione.');
+  return res.status(200).json({});
+}
+await db.collection(collectionName).updateOne(
+  { userId },
+  { $set: { quizInEsecuzione: true } },
+  { upsert: true }
+);
+
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
     const userInfo = `
 Nome: ${nome}
@@ -465,12 +476,23 @@ for (let i = 0; i <= 5; i++) {
      { $set: { numero: numero } },
       { upsert: true }
  );
-
+    // … logica che genera fullAdvice, chunks, salva in history, ecc. …
+await db.collection(collectionName).updateOne(
+  { userId },
+  { $set: { quizInEsecuzione: false } }
+);
     // 10) restituisci la risposta
     return res.json(responsePayload);
 
   } catch (err) {
     console.error('❌ Errore nella generazione personalizzata:', err.response?.data || err);
+    // In caso di errore, resetta il flag per non bloccare l’utente
+    if (req.body.user_id) {
+      await db.collection(collectionName).updateOne(
+        { userId: req.body.user_id },
+        { $set: { quizInEsecuzione: false } }
+      );
+    }
     return res.status(500).json({ message: 'Errore nella generazione della consulenza personalizzata.' });
   }
 });
