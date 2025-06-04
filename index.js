@@ -330,7 +330,6 @@ await db.collection(collectionName).updateOne(
   { userId },
   { $set: { quizInEsecuzione: false }, $unset: { quizLockExpiresAt: "" } }
 );
-);
 
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
     const userInfo = `
