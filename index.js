@@ -228,6 +228,7 @@ ${FAQ_TEXT}
 ‼️ Non consigliare un test diverso.
 ✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
 📌 Questo è il consiglio che hai dato prima: ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
+**La risposta finale deve essere al massimo 990 caratteri totali.**
 
 Stile: professionale, rassicurante, mai aggressivo.
 `;
@@ -258,38 +259,10 @@ Stile: professionale, rassicurante, mai aggressivo.
 const fullReply = gptReply.data.choices[0].message.content;
 
 // 2. se è troppo lunga (>1000), richiedi a GPT una sintesi
-let finalReply = fullReply;
-if (fullReply.length > 1000) {
-  console.log(`⚠️ Risposta troppo lunga (${fullReply.length} chars), genero una sintesi…`);
-  const summaryResponse = await axios.post(
-    'https://api.openai.com/v1/chat/completions',
-    {
-      model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'system',
-          content: 'Sei un assistente che sintetizza testi mantenendo i punti chiave in massimo 1000 caratteri.'
-        },
-        {
-          role: 'user',
-          content: `Per favore, sintetizza questo testo in non più di 1000 caratteri:\n\n${fullReply}`
-        }
-      ],
-      temperature: 0.0
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      }
-    }
-  );
-  finalReply = summaryResponse.data.choices[0].message.content.trim();
-  console.log('📋 Sintesi generata:', finalReply.length, 'caratteri');
-}
+
 
 // 3. suddividi in chunk da inviare a Manychat
-const splitReplies = splitMessage(finalReply, 999);
+const splitReplies = splitMessage(fullReply, 999);
 console.log("📤 Risposta AI suddivisa:", splitReplies);
 
 // 4. salva la history con il contesto + utente + risposta completa
