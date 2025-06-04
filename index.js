@@ -228,7 +228,7 @@ ${FAQ_TEXT}
 ‼️ Non consigliare un test diverso.
 ✅ Se l’utente chiede chiarimenti, fai riferimento al test già consigliato.
 📌 Questo è il consiglio che hai dato prima: ${lastAssistantReply?.content || "Nessun consiglio disponibile."}
-**La risposta finale deve essere al massimo 990 caratteri totali.**
+**La risposta deve essere al massimo 990 caratteri, compresi spazi e punteggiatura.**
 
 Stile: professionale, rassicurante, mai aggressivo.
 `;
