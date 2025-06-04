@@ -234,7 +234,7 @@ Stile: professionale, rassicurante, mai aggressivo.
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
-      ...userHistory.slice(-4),  // Include last 4 messages from history
+      ...userHistory.slice(-6),  // Include last 6 messages from history
       { role: 'user', content: userMessage }
     ];
 
@@ -275,7 +275,7 @@ if (fullReply.length > 1000) {
           content: `Per favore, sintetizza questo testo in non più di 1000 caratteri:\n\n${fullReply}`
         }
       ],
-      temperature: 0.5
+      temperature: 0.0
     },
     {
       headers: {
@@ -321,14 +321,15 @@ app.post('/vitdna-quiz', async (req, res) => {
     } = req.body;
 
     const history = await loadHistory(userId);
-if (history.quizInEsecuzione) {
+// Se esiste quizLockExpiresAt e non è scaduto, blocca:
+if (history.quizInEsecuzione && history.quizLockExpiresAt > new Date()) {
   console.log('⚠️ Quiz già in corso per user', userId, ', ignoro la seconda invocazione.');
   return res.status(200).json({});
 }
 await db.collection(collectionName).updateOne(
   { userId },
-  { $set: { quizInEsecuzione: true } },
-  { upsert: true }
+  { $set: { quizInEsecuzione: false }, $unset: { quizLockExpiresAt: "" } }
+);
 );
 
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
