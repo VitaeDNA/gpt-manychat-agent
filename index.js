@@ -234,7 +234,7 @@ Stile: professionale, rassicurante, mai aggressivo.
 
     const gptMessages = [
       { role: 'system', content: systemPrompt },
-      ...userHistory.slice(-6),  // Include last 6 messages from history
+      ...userHistory.slice(-4),  // Include last 4 messages from history
       { role: 'user', content: userMessage }
     ];
 
@@ -243,7 +243,8 @@ Stile: professionale, rassicurante, mai aggressivo.
   {
     model: "gpt-3.5-turbo",
     messages: gptMessages,  // Use the properly defined gptMessages array
-    temperature: 0.4
+    temperature: 0.0
+    max_tokens: 600
   },
   {
     headers: {
