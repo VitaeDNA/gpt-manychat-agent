@@ -320,27 +320,34 @@ app.post('/vitdna-quiz', async (req, res) => {
       q6_dieta, q7_macronutrienti, q8_allenamento, q9_medicine, q10_patologia, numero
     } = req.body;
 
-    const history = await loadHistory(userId);
-// Se esiste quizLockExpiresAt e non è scaduto, blocca:
-const now = new Date();
-if (
-  history.quizInEsecuzione === true &&
-  history.quizLockExpiresAt &&
-  new Date(history.quizLockExpiresAt) > now
-) {
+    const now = new Date();
+// Provo a prendere il lock *solo se* non esiste un lock attivo (o se è già scaduto)
+const result = await db.collection(collectionName).findOneAndUpdate(
+  {
+    userId,
+    $or: [
+      { quizInEsecuzione: { $exists: false } },                // primo accesso
+      { quizInEsecuzione: false },                              // stato libero
+      { quizLockExpiresAt: { $lte: now } }                     // lock precedente scaduto
+    ]
+  },
+  {
+    // imposta nuovo lock valido 10 secondi da ora
+    $set: {
+      quizInEsecuzione: true,
+      quizLockExpiresAt: new Date(Date.now() + 10_000)
+    }
+  },
+  { returnDocument: 'after' }
+);
+
+if (!result.value) {
+  // se value è null, significa che non ho trovato nessun document
+  // con quizInEsecuzione:false o lock scaduto => c'è un lock ancora valido
   console.log('⚠️ Quiz già in corso per user', userId, ', ignoro la seconda invocazione.');
   return res.status(200).json({});
 }
-await db.collection(collectionName).updateOne(
-  { userId },
-  {
-    $set: {
-      quizInEsecuzione: true,
-      quizLockExpiresAt: new Date(Date.now() + 10_000) // lock valido 10 secondi
-    }
-  },
-  { upsert: true }
-);
+// se result.value non è null, ho prelevato il lock e posso continuare
     
     // 1) mettiamo tutte le risposte utente in un blocco chiaro
     const userInfo = `
