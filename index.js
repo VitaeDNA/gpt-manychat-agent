@@ -448,7 +448,7 @@ const responsePayload = {};
 for (let i = 0; i <= 5; i++) {
   responsePayload[`response_${i}`] = (chunks[i] && chunks[i].trim().length > 0)
     ? chunks[i]
-    : " ";  // placeholder non‐vuoto
+    : "";  // placeholder non‐vuoto
 }
 
     // 9) salva in history
